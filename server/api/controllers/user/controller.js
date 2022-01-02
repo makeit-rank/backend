@@ -16,5 +16,34 @@ export class Controller {
       next(err);
     }
   }
+  async addAddress(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+        console.log(req.body)
+       if (decoded.id) {
+         const address = await AuthService.addAddress(decoded.id, req.body);
+         return res.send("Address added successfully");
+       } else {
+         res.status(401).end();
+       }
+    } catch (err) {
+      next(err);
+    }
+  }
+  async becomeASeller(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+
+      if (decoded.id) {
+        const sellet = AuthService.createSeller(decoded.id);
+      } else {
+        res.status(401).end();
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 export default new Controller();

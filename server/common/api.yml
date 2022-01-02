@@ -15,7 +15,6 @@ consumes:
 produces:
   - application/json
 
-
 definitions:
   ExampleBody:
     type: object
@@ -28,17 +27,41 @@ definitions:
         example: no_stress
 
 paths:
-  
   /user/getuserdata:
-     get:
-       tags:
-         - Auth 
-       summary: Get user data
-       responses:
-         200:
-           description: Return the user data
-         404:
-           description: User not found / Unauthorized
+    get:
+      tags:
+        - User
+      summary: Get user data
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+  /user/addAddress:
+    post:
+      tags:
+        - User
+      summary: Add address
+      parameters:
+        - in: body
+          name: body
+          description: Add address
+          schema:
+            type: object
+          properties:
+            Address:
+              type: string
+            pincode:
+              type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
   /auth/login:
     post:
       tags:
@@ -84,7 +107,7 @@ paths:
                 type: string
               password:
                 type: string
-              
+
       consumes:
         - application/json
       produces:

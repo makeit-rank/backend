@@ -1,5 +1,6 @@
 import User from "../../models/User";
 import authenticationService from "./authentication.service";
+import {ObjectId} from 'mongodb'
 class AuthService {
   async getUserbyEmail(email) {
     let user = await User.findOne({ email: email });
@@ -24,6 +25,17 @@ class AuthService {
       password: await authenticationService.encryptPassword(user.password),
     };
     return await User.create(newUser);
+  }
+  async createSeller(uid) {
+   
+  }
+  async addAddress(uid, address) {
+     const user = await User.findById(uid);
+     user.address.push(address);
+     await user.save();
+     console.log(user)
+     return;
+   
   }
 }
 export default new AuthService();
