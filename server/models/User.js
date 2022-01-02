@@ -6,10 +6,7 @@ const model = mongoose.Schema({
   mobile: Number,
   password: String,
   address: Array,
-  role :{
-    type: String,
-    default: "user"
-  }
+  role: String,
 });
 
 const User = mongoose.model("User", model);

@@ -134,7 +134,7 @@ paths:
               gst_id : 
                type: string
               pickup_address : 
-                type: string
+                type: object
 
       consumes:
         - application/json

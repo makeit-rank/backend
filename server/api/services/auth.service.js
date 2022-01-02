@@ -13,10 +13,18 @@ class AuthService {
     let user = await User.findById(uid, { _id: 0, __v: 0 });
     user.password = undefined;
     user._doc["_id"] = undefined;
-
-    if (user) {
-      return user;
-    }
+    
+      if(user.role=="seller"){
+        const seller = await Seller.findOne({user_id: uid}, {_id: 0, __v: 0});
+        seller._doc["_id"] = undefined;
+        seller._doc["user_id"] = undefined;
+        return {...user["_doc"],...seller["_doc"]};
+     }
+     else{
+       return user;
+     }
+   
+   
   }
   async createUser(user) {
     const newUser = {
@@ -24,6 +32,7 @@ class AuthService {
       mobile: user.mobile,
       email: user.email,
       password: await authenticationService.encryptPassword(user.password),
+      role:"user",
     };
     return await User.create(newUser);
   }
@@ -35,7 +44,9 @@ class AuthService {
       pickup_address: body.pickup_address,
     }
     await Seller.create(seller);
-    User.findByIdAndUpdate(uid, { $set: { role: "seller" } });
+    const user = await User.findById(uid);
+    user.role = "seller";
+    await user.save();
     return;
   }
   async addAddress(uid, address) {
