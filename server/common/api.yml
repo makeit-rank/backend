@@ -117,6 +117,34 @@ paths:
           description: Successful sign in
         401:
           description: Invalid password or username
+  /user/becomeaseller:
+    post:
+      tags:
+        - User
+      summary: Become a seller
+      description: Become a seller
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              shop_name: 
+                type : string  
+              gst_id : 
+               type: string
+              pickup_address : 
+                type: string
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful became a seller
+        401:
+          description: Invalid password or username
   /spec:
     get:
       tags:

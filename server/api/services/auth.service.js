@@ -1,6 +1,7 @@
 import User from "../../models/User";
 import authenticationService from "./authentication.service";
 import {ObjectId} from 'mongodb'
+import Seller from "../../models/Seller";
 class AuthService {
   async getUserbyEmail(email) {
     let user = await User.findOne({ email: email });
@@ -26,8 +27,16 @@ class AuthService {
     };
     return await User.create(newUser);
   }
-  async createSeller(uid) {
-   
+  async createSeller(uid, body) {
+    const seller = {
+      user_id: uid,
+      shop_name : body.shop_name,
+      gst_id: body.gst_id,
+      pickup_address: body.pickup_address,
+    }
+    await Seller.create(seller);
+    User.findByIdAndUpdate(uid, { $set: { role: "seller" } });
+    return;
   }
   async addAddress(uid, address) {
      const user = await User.findById(uid);

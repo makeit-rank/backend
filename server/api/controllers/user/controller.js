@@ -37,7 +37,8 @@ export class Controller {
       const decoded = await authenticationService.verifyToken(token);
 
       if (decoded.id) {
-        const sellet = AuthService.createSeller(decoded.id);
+        const seller = AuthService.createSeller(decoded.id ,  req.body);
+        return res.send("Seller added successfully");
       } else {
         res.status(401).end();
       }
