@@ -24,9 +24,7 @@ class AuthService {
       password: await authenticationService.encryptPassword(user.password),
 
     }
-    await User.create(newUser,(err,user)=>{ 
-    return user;  
-   });
+    return await User.create(newUser);
    
   }
 }

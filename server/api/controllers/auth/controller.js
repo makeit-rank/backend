@@ -11,7 +11,7 @@ export class Controller {
         return;
       }
       const newUser = await AuthService.createUser(req.body);
-      const token = authenticationService.generateToken(newUser);
+      const token = authenticationService.generateToken(newUser._id);
       res.status(201).send(token);
     } catch (err) {
       res.status(500).send(err);
@@ -20,7 +20,7 @@ export class Controller {
   }
   async login(req, res, next) {
      
-    const user = await User.findOne({ email: req.body.email });
+    const user = await AuthService.getUserbyEmail(req.body.email);
     if(user){
       const isValid = await authenticationService.comparePassword(req.body.password, user.password);
       if(isValid){
@@ -33,6 +33,10 @@ export class Controller {
           return;
        }
      
+    }
+    else{
+      res.status(401).send("User not found");
+      return;
     }
   }
   async getUserDetails(req, res, next) {
