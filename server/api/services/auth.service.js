@@ -1,6 +1,4 @@
-import res from "express/lib/response";
-import l from "../../common/logger";
-import  { User } from "../../common/mongo";
+import User from "../../models/User";
 import authenticationService from "./authentication.service";
 class AuthService {
   async getUserbyEmail(email) {
@@ -28,5 +26,4 @@ class AuthService {
    
   }
 }
-
 export default new AuthService();

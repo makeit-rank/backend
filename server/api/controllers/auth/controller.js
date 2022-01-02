@@ -1,6 +1,7 @@
 import authenticationService from '../../services/authentication.service';
 import AuthService from '../../services/auth.service';
-import { User } from '../../../common/mongo';
+
+
 
 export class Controller {
   async signin(req, res, next) {
@@ -54,7 +55,6 @@ export class Controller {
       }
       else{
         res.status(401).end();
-        
       }
     } catch (err) {
       next(err);

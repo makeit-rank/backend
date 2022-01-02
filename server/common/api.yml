@@ -29,7 +29,7 @@ definitions:
 
 paths:
   
-  /auth/getuserdata:
+  /user/getuserdata:
      get:
        tags:
          - Auth 
