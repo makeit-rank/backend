@@ -8,6 +8,7 @@ export default express
   .post('/addaddress',controller.addAddress)
   .post('/addtocart',controller.addToCart)
   .get('/getcart',controller.getCart)
+  .post('/removefromcart',controller.removeFromCart)
   
   
   

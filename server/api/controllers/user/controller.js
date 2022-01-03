@@ -62,6 +62,26 @@ export class Controller {
       next(err);
     }
   }
+  async removeFromCart(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+      if (decoded.id) {
+        const cart = await cartService.removeFromCart(decoded.id, req.body);
+        if(cart){
+          return res.send("Cart removed successfully");
+        }
+        else{
+          return res.send("Cart not found");
+        }
+      } else {
+        res.status(401).send("Unauthorized");
+      }
+    }
+    catch (err) {
+      next(err);
+    }
+  }
   async becomeASeller(req, res, next) {
     try {
       const token = req.headers.authorization.split(" ")[1];
