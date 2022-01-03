@@ -7,7 +7,7 @@ export class Controller {
       const decoded = await authenticationService.verifyToken(token);
       if(decoded.id){
         const product = await productService.createProduct(decoded.id, req.body);
-        res.json(product);
+        res.status(200).json(product._id);
       }
       else{
         res.status(401).json({message: "Unauthorized"});
@@ -17,5 +17,6 @@ export class Controller {
       next(err);
     }
   }
+ 
 }
 export default new Controller();

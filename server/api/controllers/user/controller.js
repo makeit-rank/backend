@@ -1,5 +1,6 @@
 import authenticationService from "../../services/authentication.service";
 import AuthService from "../../services/auth.service";
+import cartService from "../../services/cart.service";
 
 export class Controller {
   async getUserDetails(req, res, next) {
@@ -28,6 +29,36 @@ export class Controller {
          res.status(401).end();
        }
     } catch (err) {
+      next(err);
+    }
+  }
+  async addToCart(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+      if (decoded.id) {
+        const cart = await cartService.addToCart(decoded.id, req.body);
+        return res.send(cart._id);
+      } else {
+        res.status(401).send("Unauthorized");
+      }
+    }
+    catch (err) {
+      next(err);
+    }
+  }
+  async getCart(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+      if (decoded.id) {
+        const carts = await cartService.getCart(decoded.id);
+        return res.send(carts);
+      } else {
+        res.status(401).send("Unauthorized");
+      }
+    }
+    catch (err) {
       next(err);
     }
   }

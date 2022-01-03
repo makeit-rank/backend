@@ -6,6 +6,8 @@ export default express
   .get('/getuserdata',controller.getUserDetails)
   .post('/becomeaseller',controller.becomeASeller)
   .post('/addaddress',controller.addAddress)
+  .post('/addtocart',controller.addToCart)
+  .get('/getcart',controller.getCart)
   
   
   

@@ -161,6 +161,22 @@ paths:
           description: Successful sign in
         401:
           description: Invalid password or username
+  /user/getcart:
+    get:
+      tags:
+        - User
+      summary: Get cart
+      description: Get cart
+      
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the cart
+        404:
+          description: User not found / Unauthorized
   /user/becomeaseller:
     post:
       tags:
@@ -189,7 +205,33 @@ paths:
           description: Successful became a seller
         401:
           description: Invalid password or username
-  
+  /user/addtocart:
+    post:
+      tags:
+        - User
+      summary: Add to cart
+      description: Add to cart
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: string
+              size:
+                type: string
+              AttachedFiles:
+                type: object
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful added to cart
+        401:
+          description: Invalid password or username
   /spec:
     get:
       tags:

@@ -1,6 +1,5 @@
 import User from "../../models/User";
 import authenticationService from "./authentication.service";
-import {ObjectId} from 'mongodb'
 import Seller from "../../models/Seller";
 class AuthService {
   async getUserbyEmail(email) {
