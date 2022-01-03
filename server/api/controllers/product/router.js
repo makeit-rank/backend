@@ -1,9 +1,5 @@
-import * as express from 'express';
-import controller from './controller';
-
-export default express
-  .Router()
-  .get('/addproduct',controller.addProduct)
-  
-  
-  
+import controller from "./controller";
+import * as express from "express";
+export default express.
+Router()
+.post("/addproduct", controller.addProduct);

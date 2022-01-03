@@ -27,6 +27,50 @@ definitions:
         example: no_stress
 
 paths:
+  /product/addproduct:
+    post:
+      tags:
+        - Product
+      summary: Add product
+      description: Add product
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              price:
+                type: number
+              specification:
+                type: object
+                
+                  
+              various_size:
+                type: object
+                
+              customizable:
+                type: array
+                items:
+                  oneOf:
+                   - type: object
+
+                
+              images:
+                type: object
+                
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful added product
+        401:
+          description: Invalid password or username
+
+
   /user/getuserdata:
     get:
       tags:
@@ -145,6 +189,7 @@ paths:
           description: Successful became a seller
         401:
           description: Invalid password or username
+  
   /spec:
     get:
       tags:
