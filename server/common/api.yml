@@ -31,7 +31,7 @@ paths:
     post:
       tags:
         - Product
-      summary: Add product
+      summary: Add product (Token required)
       description: Add product
       parameters:
         - in: body
@@ -70,12 +70,34 @@ paths:
         401:
           description: Invalid password or username
 
-
+  /user/addtowishlist:
+    post:
+      tags:
+        - User
+      summary: Add wishlist (Token required)
+      description: Add wishlist
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful added wishlist
+        401:
+          description: Invalid password or username
   /user/getuserdata:
     get:
       tags:
         - User
-      summary: Get user data
+      summary: Get user data (Token required)
       responses:
         200:
           description: Return the user data
@@ -85,7 +107,7 @@ paths:
     post:
       tags:
         - User
-      summary: Add address
+      summary: Add address (Token required)
       parameters:
         - in: body
           name: body
@@ -165,7 +187,7 @@ paths:
     get:
       tags:
         - User
-      summary: Get cart
+      summary: Get cart (Token required)
       description: Get cart
       
       consumes:
@@ -181,7 +203,7 @@ paths:
     post:
       tags:
         - User
-      summary: Become a seller
+      summary: Become a seller (Token required)
       description: Become a seller
       parameters:
         - in: body
@@ -209,7 +231,7 @@ paths:
     post:
       tags:
         - User
-      summary: Add to cart
+      summary: Add to cart (Token required)
       description: Add to cart
       parameters:
         - in: body
@@ -236,7 +258,7 @@ paths:
     post:
       tags:
         - User
-      summary: Remove from cart
+      summary: Remove from cart (Token required)
       description: Remove from cart
       parameters:
         - in: body

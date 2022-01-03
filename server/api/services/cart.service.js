@@ -1,4 +1,5 @@
 import Cart from "../../models/Cart";
+import User from "../../models/User";
 
 class CartService{
     async addToCart(uid, body){
@@ -20,6 +21,13 @@ class CartService{
         }
 
       
+    }
+    async addToWishList(uid,body){
+        
+        const user = await User.findByIdAndUpdate(uid,{$push:{wishlist : body.product_id}});
+        return user;
+        
+        
     }
 }
 export default new CartService();

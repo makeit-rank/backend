@@ -97,5 +97,20 @@ export class Controller {
       next(err);
     }
   }
+  async addToWishList(req, res, next) {
+    try { 
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+      if (decoded.id) {
+        const wishlist = await cartService.addToWishList(decoded.id, req.body);
+        return res.send("Wishlist added successfully");
+      } else {
+        res.status(401).send("Unauthorized");
+      }
+    }
+  catch(err){
+    next(err)
+  }
+}
 }
 export default new Controller();

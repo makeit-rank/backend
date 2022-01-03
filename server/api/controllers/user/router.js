@@ -9,6 +9,7 @@ export default express
   .post('/addtocart',controller.addToCart)
   .get('/getcart',controller.getCart)
   .post('/removefromcart',controller.removeFromCart)
+  .post('/addtowishlist',controller.addToWishList)
   
   
   

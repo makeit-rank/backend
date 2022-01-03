@@ -7,6 +7,7 @@ const model = mongoose.Schema({
   password: String,
   address: Array,
   role: String,
+  wishlist: Array,
 });
 
 const User = mongoose.model("User", model);
