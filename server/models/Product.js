@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 const product = mongoose.Schema({
     title: String,
     price: Number,
-    specification: Object,
-    various_size: Object,
+    specification: Array,
+    various_size: Array,
     customizable: Array,
-    images: Object,
+    images: Array,
     user_id: String,
 })
 

@@ -5,8 +5,8 @@ info:
   description: My cool app
 basePath: /api/v1
 tags:
-  - name: auth
-    description: Simple example endpoints
+  - name: Make-It
+    description: Simple Endpoints
   - name: Specification
     description: The swagger API specification
 
@@ -27,6 +27,26 @@ definitions:
         example: no_stress
 
 paths:
+  /user/removefromwishlist:
+    post:
+      tags:
+        - User
+      Summary: Remove a user from a wishlist
+      Description: Remove a user from a wishlist
+      parameters:
+        - in: body
+          name: body
+          description: The user to remove from the wishlist
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: string
+      
+      Consumes:
+        - application/json
+      Produces:
+        - application/json
   /product/addproduct:
     post:
       tags:
@@ -44,21 +64,26 @@ paths:
               price:
                 type: number
               specification:
-                type: object
+               type: array
+               items:
+                 type: string
                 
-                  
+              images:
+                type: array
+                items:
+                 type: string    
               various_size:
-                type: object
+               type: array
+               items:
+                 type: string
                 
               customizable:
                 type: array
                 items:
-                  oneOf:
-                   - type: object
+                 - type: object
 
                 
-              images:
-                type: object
+              
                 
       consumes:
         - application/json
@@ -153,6 +178,21 @@ paths:
           description: Successful login
         401:
           description: Invalid password or username
+  /user/getwishlist:
+    get:
+      tags:
+        - User
+      summary: Get wishlist (Token required)
+      description: Get wishlist
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
   /auth/signin:
     post:
       tags:
@@ -244,14 +284,16 @@ paths:
               size:
                 type: string
               AttachedFiles:
-                type: object
+               type: array
+               items:
+                  type: string
       consumes:
         - application/json
       produces:
         - application/json
       responses:
         200:
-          description: Successful added to cart
+          description: Successful added to cart 
         401:
           description: Invalid password or username
   /user/removefromcart:

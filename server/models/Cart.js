@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const cart = mongoose.Schema({
     product_id :  String,
     size: String,
-    AttachedFiles: Object,
+    AttachedFiles: Array,
     user_id: String,
 })
 

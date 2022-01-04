@@ -10,6 +10,8 @@ export default express
   .get('/getcart',controller.getCart)
   .post('/removefromcart',controller.removeFromCart)
   .post('/addtowishlist',controller.addToWishList)
+  .get('/getwishlist',controller.getWishList)
+  .post('/removefromwishlist',controller.removeFromWishlist)
   
   
   

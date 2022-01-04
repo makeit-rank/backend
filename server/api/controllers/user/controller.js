@@ -1,6 +1,6 @@
 import authenticationService from "../../services/authentication.service";
 import AuthService from "../../services/auth.service";
-import cartService from "../../services/cart.service";
+import userService from "../../services/user.service";
 
 export class Controller {
   async getUserDetails(req, res, next) {
@@ -37,7 +37,7 @@ export class Controller {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
       if (decoded.id) {
-        const cart = await cartService.addToCart(decoded.id, req.body);
+        const cart = await userService.addToCart(decoded.id, req.body);
         return res.send(cart._id);
       } else {
         res.status(401).send("Unauthorized");
@@ -52,7 +52,7 @@ export class Controller {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
       if (decoded.id) {
-        const carts = await cartService.getCart(decoded.id);
+        const carts = await userService.getCart(decoded.id);
         return res.send(carts);
       } else {
         res.status(401).send("Unauthorized");
@@ -67,7 +67,7 @@ export class Controller {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
       if (decoded.id) {
-        const cart = await cartService.removeFromCart(decoded.id, req.body);
+        const cart = await userService.removeFromCart(decoded.id, req.body);
         if(cart){
           return res.send("Cart removed successfully");
         }
@@ -102,12 +102,43 @@ export class Controller {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
       if (decoded.id) {
-        const wishlist = await cartService.addToWishList(decoded.id, req.body);
+        const wishlist = await userService.addToWishList(decoded.id, req.body);
         return res.send("Wishlist added successfully");
       } else {
         res.status(401).send("Unauthorized");
       }
     }
+  catch(err){
+    next(err)
+  }
+}
+async removeFromWishlist(req,res,next){
+  try{
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = await authenticationService.verifyToken(token);
+    if(decoded.id){
+      const wishlist = await userService.removeWishlist(decoded.id,req.body.product_id);
+      res.status(200).send("Removed Succesfully!");
+    }
+    else{
+      res.status(401).send("Unauthorized");
+    }
+  }
+  catch(err){
+    next(err)
+  }
+}
+async getWishList(req, res, next) {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = await authenticationService.verifyToken(token);
+    if (decoded.id) {
+      const wishlist = await userService.getWishlist(decoded.id);
+      return res.send(wishlist);
+    } else {
+      res.status(401).send("Unauthorized");
+    }
+  }
   catch(err){
     next(err)
   }
