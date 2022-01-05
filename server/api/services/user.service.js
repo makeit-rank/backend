@@ -35,5 +35,13 @@ class CartService {
     });
     return;
   }
+  async moveTowishlist(uid, body) {
+    const cart = await Cart.findByIdAndDelete(body.cart_id);
+    
+    const user = await User.findByIdAndUpdate(uid, {
+      $push: { wishlist: cart.product_id }
+    });
+    return cart;
+  }
 }
 export default new CartService();

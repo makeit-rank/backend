@@ -143,5 +143,22 @@ async getWishList(req, res, next) {
     next(err)
   }
 }
+async moveToWishList(req, res, next) {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = await authenticationService.verifyToken(token);
+    if (decoded.id) {
+      const wishlist = await userService.moveTowishlist(decoded.id ,req.body);
+      return res.send(wishlist);
+    } else {
+      res.status(401).send("Unauthorized");
+    }
+  }
+  catch(err){
+    next(err)
+  }
+
+
+}
 }
 export default new Controller();

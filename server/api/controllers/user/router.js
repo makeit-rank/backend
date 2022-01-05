@@ -12,6 +12,7 @@ export default express
   .post('/addtowishlist',controller.addToWishList)
   .get('/getwishlist',controller.getWishList)
   .post('/removefromwishlist',controller.removeFromWishlist)
+  .post('/movetowishlist',controller.moveToWishList)
   
   
   

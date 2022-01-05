@@ -59,6 +59,27 @@ paths:
         - application/json
       Produces:
         - application/json
+  /user/movetowishlist:
+    post:
+      tags:
+        - User
+      Summary: Move a product to wishlist
+      Description: Move a product to wishlist
+      parameters:
+        - in: body
+          name: body
+          description: The user to move product to wishlist
+          schema:
+            type: object
+            properties:
+                cart_id : 
+                  type : string
+              
+      
+      Consumes:
+        - application/json
+      Produces:
+        - application/json
   /user/removefromwishlist:
     post:
       tags:
