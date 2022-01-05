@@ -1,5 +1,6 @@
 import Product from "../../models/Product";
 import Review from "../../models/Review";
+import User from "../../models/User";
 class ProductServices {
     async createProduct(user_id , product) {
         const newProduct = await Product.create({
@@ -7,7 +8,7 @@ class ProductServices {
             price: product.price,
             specification: product.specification,
             various_size: product.various_size,
-            customizable: product.customizable,
+            requiredAttachments: product.requiredAttachments,
             images: product.images,
             user_id: user_id,
         });
@@ -15,12 +16,12 @@ class ProductServices {
   
 
     }
-    async addReview(body){
+    async addReview(uid,body){
+        const user = await User.findById(uid);  
         const review = await Review.create({
+            name : user.name,
             product_id : body.product_id,
             star : body.star,
-            headline : body.headline,
-            images : body.images,
             description : body.description,
             timestamp :  new Date().toLocaleString()
         })

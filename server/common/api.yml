@@ -130,7 +130,7 @@ paths:
                items:
                  type: string
                 
-              customizable:
+              requiredAttachments:
                 type: array
                 items:
                  - type: object

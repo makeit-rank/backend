@@ -3,9 +3,7 @@ import mongoose from 'mongoose'
 const review =  mongoose.Schema({
     product_id : String,
     name: String,
-    star:Number,
-    headline : String,
-    images : Array,
+    star: Number,
     description : String,
     timestamp : String
 })

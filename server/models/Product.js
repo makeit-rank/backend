@@ -4,10 +4,10 @@ const product = mongoose.Schema({
     price: Number,
     specification: Array,
     various_size: Array,
-    customizable: Array,
+    requiredAttachments: Array,
     images: Array,
     user_id: String,
-})
+});
 
 const Product = mongoose.model('Products', product);
 export default Product;
