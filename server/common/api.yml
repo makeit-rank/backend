@@ -27,6 +27,38 @@ definitions:
         example: no_stress
 
 paths:
+  /product/addreview:
+    post:
+      tags:
+        - Product
+      Summary: Add a review to a product
+      Description:  Add a review to a product
+      parameters:
+        - in: body
+          name: body
+          description: The user to Add review in the Product
+          schema:
+            type: object
+            properties:
+                product_id : 
+                 type : string
+                star:
+                  type : number
+                headline : 
+                  type : string
+                images : 
+                  type : array 
+                  items:
+                   type: string
+                description : 
+                    type : string
+              
+              
+      
+      Consumes:
+        - application/json
+      Produces:
+        - application/json
   /user/removefromwishlist:
     post:
       tags:

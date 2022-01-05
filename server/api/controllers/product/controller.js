@@ -17,6 +17,10 @@ export class Controller {
       next(err);
     }
   }
+  async addReview(req,res,next){
+    const review = await productService.addReview(req.body);
+    return res.status(200).send(review);
+  }
  
 }
 export default new Controller();
