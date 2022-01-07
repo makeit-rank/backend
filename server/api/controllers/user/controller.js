@@ -21,13 +21,13 @@ export class Controller {
     try {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
-        console.log(req.body)
-       if (decoded.id) {
-         const address = await AuthService.addAddress(decoded.id, req.body);
-         return res.send("Address added successfully");
-       } else {
-         res.status(401).end();
-       }
+      console.log(req.body);
+      if (decoded.id) {
+        const address = await AuthService.addAddress(decoded.id, req.body);
+        return res.send("Address added successfully");
+      } else {
+        res.status(401).end();
+      }
     } catch (err) {
       next(err);
     }
@@ -42,8 +42,7 @@ export class Controller {
       } else {
         res.status(401).send("Unauthorized");
       }
-    }
-    catch (err) {
+    } catch (err) {
       next(err);
     }
   }
@@ -57,8 +56,7 @@ export class Controller {
       } else {
         res.status(401).send("Unauthorized");
       }
-    }
-    catch (err) {
+    } catch (err) {
       next(err);
     }
   }
@@ -68,17 +66,15 @@ export class Controller {
       const decoded = await authenticationService.verifyToken(token);
       if (decoded.id) {
         const cart = await userService.removeFromCart(decoded.id, req.body);
-        if(cart){
+        if (cart) {
           return res.send("Cart removed successfully");
-        }
-        else{
+        } else {
           return res.send("Cart not found");
         }
       } else {
         res.status(401).send("Unauthorized");
       }
-    }
-    catch (err) {
+    } catch (err) {
       next(err);
     }
   }
@@ -88,7 +84,7 @@ export class Controller {
       const decoded = await authenticationService.verifyToken(token);
 
       if (decoded.id) {
-        const seller = AuthService.createSeller(decoded.id ,  req.body);
+        const seller = AuthService.createSeller(decoded.id, req.body);
         return res.send("Seller added successfully");
       } else {
         res.status(401).end();
@@ -98,7 +94,7 @@ export class Controller {
     }
   }
   async addToWishList(req, res, next) {
-    try { 
+    try {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
       if (decoded.id) {
@@ -107,58 +103,54 @@ export class Controller {
       } else {
         res.status(401).send("Unauthorized");
       }
-    }
-  catch(err){
-    next(err)
-  }
-}
-async removeFromWishlist(req,res,next){
-  try{
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = await authenticationService.verifyToken(token);
-    if(decoded.id){
-      const wishlist = await userService.removeWishlist(decoded.id,req.body.product_id);
-      res.status(200).send("Removed Succesfully!");
-    }
-    else{
-      res.status(401).send("Unauthorized");
+    } catch (err) {
+      next(err);
     }
   }
-  catch(err){
-    next(err)
-  }
-}
-async getWishList(req, res, next) {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = await authenticationService.verifyToken(token);
-    if (decoded.id) {
-      const wishlist = await userService.getWishlist(decoded.id);
-      return res.send(wishlist);
-    } else {
-      res.status(401).send("Unauthorized");
+  async removeFromWishlist(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+      if (decoded.id) {
+        const wishlist = await userService.removeWishlist(
+          decoded.id,
+          req.body.product_id
+        );
+        res.status(200).send("Removed Succesfully!");
+      } else {
+        res.status(401).send("Unauthorized");
+      }
+    } catch (err) {
+      next(err);
     }
   }
-  catch(err){
-    next(err)
-  }
-}
-async moveToWishList(req, res, next) {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = await authenticationService.verifyToken(token);
-    if (decoded.id) {
-      const wishlist = await userService.moveTowishlist(decoded.id ,req.body);
-      return res.send(wishlist);
-    } else {
-      res.status(401).send("Unauthorized");
+  async getWishList(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+      if (decoded.id) {
+        const wishlist = await userService.getWishlist(decoded.id);
+        return res.send(wishlist);
+      } else {
+        res.status(401).send("Unauthorized");
+      }
+    } catch (err) {
+      next(err);
     }
   }
-  catch(err){
-    next(err)
+  async moveToWishList(req, res, next) {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+      if (decoded.id) {
+        const wishlist = await userService.moveTowishlist(decoded.id, req.body);
+        return res.send(wishlist);
+      } else {
+        res.status(401).send("Unauthorized");
+      }
+    } catch (err) {
+      next(err);
+    }
   }
-
-
-}
 }
 export default new Controller();

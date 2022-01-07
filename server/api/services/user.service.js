@@ -30,16 +30,16 @@ class CartService {
     return user.wishlist;
   }
   async removeWishlist(uid, product_id) {
-   await User.findByIdAndUpdate(uid, {
+    await User.findByIdAndUpdate(uid, {
       $pull: { wishlist: product_id },
     });
     return;
   }
   async moveTowishlist(uid, body) {
     const cart = await Cart.findByIdAndDelete(body.cart_id);
-    
+
     const user = await User.findByIdAndUpdate(uid, {
-      $push: { wishlist: cart.product_id }
+      $push: { wishlist: cart.product_id },
     });
     return cart;
   }

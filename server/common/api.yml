@@ -1,254 +1,77 @@
 swagger: "2.0"
 info:
   version: 1.0.0
-  title: myapp
-  description: My cool app
+  title: Make-It
+  description: "MongoDB (Atlas Hackathon) \n\n Category : E-Commerce Creation "
 basePath: /api/v1
-tags:
-  - name: Make-It
-    description: Simple Endpoints
-  - name: Specification
-    description: The swagger API specification
-
 consumes:
   - application/json
 produces:
   - application/json
 
 definitions:
-  ExampleBody:
+  Cart:
     type: object
-    title: example
+    title: Cart
     required:
-      - name
     properties:
-      name:
+      product_id:
         type: string
-        example: no_stress
+        example: 61d82e16caccbc1f64a8d1ab
+      size:
+        type: string
+        example: XL
+      user_id:
+        type: string
+        example: 61d82e16caccbc1f64a8d1ab
+      AttachmentFiles:
+        type: array
+        items: string
+        example: ["https://bit.ly/3zCnHVv", "https://bit.ly/3zCnHVv"]
+  Product:
+    type: object
+    title: Product
+    required:
+    properties:
+      product_id:
+        type: string
+        example: 61d82e16caccbc1f64a8d1ab
+      Title:
+        type: string
+        example: London Hills Men's Regular Fit Printed Full Sleeve Soft & Strong T-Shirt
+      price:
+        type: number
+        example: 499
+      user_id:
+        type: string
+        example: 61d82e16caccbc1f64a8d1ab
+      images:
+        type: array
+        items:
+          type: string
+        example: ["https://bit.ly/3zCnHVv", "https://bit.ly/3zCnHVv"]
+
+      requiredAttachments:
+        type: array
+        items:
+          type: string
+        example: ["https://bit.ly/3zCnHVv", "https://bit.ly/3zCnHVv"]
+      specification:
+        type: object
+        example:
+          {
+            "Type": "Polo Neck",
+            "Color": "Black",
+            "Fabric": "Cotton",
+            "Fit": "Slim",
+          }
+      various_size:
+        type: array
+        items:
+          type: string
+        example: ["S", "M", "L", "XL"]
 
 paths:
-  /product/addreview:
-    post:
-      tags:
-        - Product
-      Summary: Add a review to a product
-      Description:  Add a review to a product
-      parameters:
-        - in: body
-          name: body
-          description: The user to Add review in the Product
-          schema:
-            type: object
-            properties:
-                product_id : 
-                 type : string
-                star:
-                  type : number
-                headline : 
-                  type : string
-                images : 
-                  type : array 
-                  items:
-                   type: string
-                description : 
-                    type : string
-              
-              
-      
-      Consumes:
-        - application/json
-      Produces:
-        - application/json
-  /user/movetowishlist:
-    post:
-      tags:
-        - User
-      Summary: Move a product to wishlist
-      Description: Move a product to wishlist
-      parameters:
-        - in: body
-          name: body
-          description: The user to move product to wishlist
-          schema:
-            type: object
-            properties:
-                cart_id : 
-                  type : string
-              
-      
-      Consumes:
-        - application/json
-      Produces:
-        - application/json
-  /user/removefromwishlist:
-    post:
-      tags:
-        - User
-      Summary: Remove a user from a wishlist
-      Description: Remove a user from a wishlist
-      parameters:
-        - in: body
-          name: body
-          description: The user to remove from the wishlist
-          schema:
-            type: object
-            properties:
-              product_id:
-                type: string
-      
-      Consumes:
-        - application/json
-      Produces:
-        - application/json
-  /product/addproduct:
-    post:
-      tags:
-        - Product
-      summary: Add product (Token required)
-      description: Add product
-      parameters:
-        - in: body
-          name: body
-          schema:
-            type: object
-            properties:
-              title:
-                type: string
-              price:
-                type: number
-              specification:
-               type: array
-               items:
-                 type: string
-                
-              images:
-                type: array
-                items:
-                 type: string    
-              various_size:
-               type: array
-               items:
-                 type: string
-                
-              requiredAttachments:
-                type: array
-                items:
-                 - type: object
-
-                
-              
-                
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: Successful added product
-        401:
-          description: Invalid password or username
-
-  /user/addtowishlist:
-    post:
-      tags:
-        - User
-      summary: Add wishlist (Token required)
-      description: Add wishlist
-      parameters:
-        - in: body
-          name: body
-          schema:
-            type: object
-            properties:
-              product_id:
-                type: string
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: Successful added wishlist
-        401:
-          description: Invalid password or username
-  /user/getuserdata:
-    get:
-      tags:
-        - User
-      summary: Get user data (Token required)
-      responses:
-        200:
-          description: Return the user data
-        404:
-          description: User not found / Unauthorized
-  /user/addAddress:
-    post:
-      tags:
-        - User
-      summary: Add address (Token required)
-      parameters:
-        - in: body
-          name: body
-          description: Add address
-          schema:
-            type: object
-          properties:
-            Address:
-              type: string
-            pincode:
-              type: string
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: Return the user data
-        404:
-          description: User not found / Unauthorized
-  /product/gettoppicks:
-    get:
-      tags:
-        - Product
-      summary: Get top picks
-      parameters:
-        - in: body
-          name: body
-          description: Get top picks
-          schema:
-            type: object
-            properties:
-              limit:
-                type: number
-           
-      responses:
-        200:
-          description: Return the top picks
-        404:
-          description: User not found / Unauthorized
-  /product/getproductbyid:
-    get:
-      tags:
-        - Product
-      summary: Get product by id 
-      parameters:
-        - in: body
-          name: body
-          description: Get product by id
-          schema:
-            type: object
-            parameters:
-              product_id:
-                type: string
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: Return the product data
-        404:
-          description: Product not found / Unauthorized
   /auth/login:
     post:
       tags:
@@ -274,11 +97,137 @@ paths:
           description: Successful login
         401:
           description: Invalid password or username
-  /user/getwishlist:
+
+  /user/getuserdata:
     get:
       tags:
         - User
-      summary: Get wishlist (Token required)
+      security:
+        - bearerAuth: []
+      summary: Get user data
+
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+
+  /user/getcart:
+    get:
+      tags:
+        - Cart
+      security:
+        - bearerAuth: []
+      summary: Get cart
+      description: Get cart
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the cart
+        404:
+          description: User not found / Unauthorized
+
+  /user/becomeaseller:
+    post:
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      summary: Become a seller
+      description: Become a seller
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              shop_name:
+                type: string
+              gst_id:
+                type: string
+              pickup_address:
+                type: object
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful became a seller
+        401:
+          description: Invalid password or username
+
+  /product/addreview:
+    post:
+      tags:
+        - Product
+      Summary: Add a review to a product
+      Description: Add a review to a product
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: body
+          name: body
+          description: The user to Add review in the Product
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: string
+              star:
+                type: number
+              headline:
+                type: string
+              images:
+                type: array
+                items:
+                  type: string
+              description:
+                type: string
+
+      Consumes:
+        - application/json
+      Produces:
+        - application/json
+
+  /user/addtowishlist:
+    post:
+      tags:
+        - Wishlist
+      security:
+        - bearerAuth: []
+      summary: Add wishlist
+      description: Add wishlist
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful added wishlist
+        401:
+          description: Invalid password or username
+
+  /user/getwishlist:
+    get:
+      tags:
+        - Wishlist
+      security:
+        - bearerAuth: []
+      summary: Get wishlist
       description: Get wishlist
       consumes:
         - application/json
@@ -289,6 +238,169 @@ paths:
           description: Return the user data
         404:
           description: User not found / Unauthorized
+
+  /user/movetowishlist:
+    post:
+      tags:
+        - Wishlist
+      Summary: Move wishlist
+      Description: Move a product to wishlist
+      parameters:
+        - in: body
+          name: body
+          description: Move product to wishlist
+          schema:
+            type: object
+            properties:
+              cart_id:
+                type: string
+
+      Consumes:
+        - application/json
+      Produces:
+        - application/json
+
+  /user/removefromwishlist:
+    delete:
+      tags:
+        - Wishlist
+      Summary: Remove from wishlist
+      Description: Remove from wishlist
+      parameters:
+        - in: body
+          name: body
+          description: Remove a product from wishlist
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: string
+
+      Consumes:
+        - application/json
+      Produces:
+        - application/json
+
+  /product/addproduct:
+    post:
+      tags:
+        - Product
+      security:
+        - bearerAuth: []
+      summary: Add product
+      description: Add product
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              price:
+                type: number
+              specification:
+                type: array
+                items:
+                  type: string
+
+              images:
+                type: array
+                items:
+                  type: string
+              various_size:
+                type: array
+                items:
+                  type: string
+
+              requiredAttachments:
+                type: array
+                items:
+                  - type: object
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful added product
+        401:
+          description: Invalid password or username
+
+  /user/addAddress:
+    post:
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      summary: Add address
+      parameters:
+        - in: body
+          name: body
+          description: Add address
+          schema:
+            type: object
+          properties:
+            Address:
+              type: string
+            pincode:
+              type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+
+  /product/gettoppicks:
+    get:
+      tags:
+        - Product
+      summary: Get top picks
+      parameters:
+        - in: body
+          name: body
+          description: Get top picks
+          schema:
+            type: object
+            properties:
+              limit:
+                type: number
+
+      responses:
+        200:
+          description: Return the top picks
+        404:
+          description: User not found / Unauthorized
+
+  /product/getproductbyid:
+    get:
+      tags:
+        - Product
+      summary: Get product by id
+      parameters:
+        - in: body
+          name: body
+          description: Get product by id
+          schema:
+            type: object
+            parameters:
+              product_id:
+                type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the product data
+        404:
+          description: Product not found / Unauthorized
+
   /auth/signin:
     post:
       tags:
@@ -319,55 +431,14 @@ paths:
           description: Successful sign in
         401:
           description: Invalid password or username
-  /user/getcart:
-    get:
-      tags:
-        - User
-      summary: Get cart (Token required)
-      description: Get cart
-      
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: Return the cart
-        404:
-          description: User not found / Unauthorized
-  /user/becomeaseller:
-    post:
-      tags:
-        - User
-      summary: Become a seller (Token required)
-      description: Become a seller
-      parameters:
-        - in: body
-          name: body
-          schema:
-            type: object
-            properties:
-              shop_name: 
-                type : string  
-              gst_id : 
-               type: string
-              pickup_address : 
-                type: object
 
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      responses:
-        200:
-          description: Successful became a seller
-        401:
-          description: Invalid password or username
   /user/addtocart:
     post:
       tags:
-        - User
-      summary: Add to cart (Token required)
+        - Cart
+      security:
+        - bearerAuth: []
+      summary: Add to cart
       description: Add to cart
       parameters:
         - in: body
@@ -380,8 +451,8 @@ paths:
               size:
                 type: string
               AttachedFiles:
-               type: array
-               items:
+                type: array
+                items:
                   type: string
       consumes:
         - application/json
@@ -389,14 +460,17 @@ paths:
         - application/json
       responses:
         200:
-          description: Successful added to cart 
+          description: Successful added to cart
         401:
           description: Invalid password or username
+
   /user/removefromcart:
-    post:
+    delete:
       tags:
-        - User
-      summary: Remove from cart (Token required)
+        - Cart
+      security:
+        - bearerAuth: []
+      summary: Remove from cart
       description: Remove from cart
       parameters:
         - in: body
@@ -406,7 +480,7 @@ paths:
             properties:
               cart_id:
                 type: string
-              
+
       consumes:
         - application/json
       produces:
@@ -416,6 +490,7 @@ paths:
           description: Successful removed from cart
         401:
           description: Invalid password or username
+
   /spec:
     get:
       tags:
@@ -423,3 +498,11 @@ paths:
       responses:
         200:
           description: Return the API specification
+
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    scheme: bearer
+    name: Authorization
+    in: header
+    description: "Enter your token here as formate 'Bearer {token}'"
