@@ -206,6 +206,29 @@ paths:
           description: Return the user data
         404:
           description: User not found / Unauthorized
+  /product/getproductbyid:
+    get:
+      tags:
+        - Product
+      summary: Get product by id 
+      parameters:
+        - in: body
+          name: body
+          description: Get product by id
+          schema:
+            type: object
+            parameters:
+              product_id:
+                type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the product data
+        404:
+          description: Product not found / Unauthorized
   /auth/login:
     post:
       tags:

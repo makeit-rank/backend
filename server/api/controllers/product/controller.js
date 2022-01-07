@@ -39,5 +39,15 @@ export class Controller {
   const review = await productService.getReview(decoded.id);
   res.status(200).json(review); 
   }
+  async getProductById(req,res,next){
+  
+      try{ 
+       const product = await productService.getProductById(req.body.product_id);
+       return res.status(200).json(product);
+      }
+      catch(err){
+        next(err);
+      }
+  }
 }
 export default new Controller();

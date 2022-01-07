@@ -7,6 +7,7 @@ const product = mongoose.Schema({
     requiredAttachments: Array,
     images: Array,
     user_id: String,
+    rating : Object, 
 });
 
 const Product = mongoose.model('Products', product);
