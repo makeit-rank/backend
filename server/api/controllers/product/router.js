@@ -6,4 +6,5 @@ Router()
 .post("/addreview",controller.addReview)
 .get("/getreview",controller.getReview) 
 .get("/getproductbyid",controller.getProductById)
+.get("/gettoppicks",controller.getTopPicks)
 

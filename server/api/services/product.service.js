@@ -26,15 +26,14 @@ class ProductServices {
             timestamp :  new Date().toLocaleString()
         });
         const product = await Product.findById(body.product_id);
-        const count = product.rating?.count?product.rating.count:0
-        const star = product.rating?.star?product.rating.star:0 
+        const count = product?.count?product.count:0
+        const star = product?.star?product.star:0 
         const newStar = (star*count + body.star)/(count+1)
-        const rating = {
+          
+        
+        await Product.findByIdAndUpdate(body.product_id,{
             star : newStar.toFixed(2), 
             count :  count + 1
-        }
-        await Product.findByIdAndUpdate(body.product_id,{
-            rating : rating
         });
         return review._id;
         
@@ -45,6 +44,13 @@ class ProductServices {
         const reviewsOfProduct = await Review.find({product_id : id});
         
         return {...product["_doc"],reviews: {...reviewsOfProduct}};
+    }
+    async getTopPicks(limit){
+        const products = await Product.find().sort({
+            rating : -1
+        }).limit(limit);
+        return products;
+        
     }
   }
   

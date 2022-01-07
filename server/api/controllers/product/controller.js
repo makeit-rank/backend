@@ -49,5 +49,14 @@ export class Controller {
         next(err);
       }
   }
+  async getTopPicks(req,res,next){
+    try{
+      const topPicks = await productService.getTopPicks();
+      return res.status(200).json(topPicks);
+    }
+    catch(err){
+      next(err);
+    }
+  }
 }
 export default new Controller();
