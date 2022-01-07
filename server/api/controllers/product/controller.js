@@ -51,7 +51,7 @@ export class Controller {
   }
   async getTopPicks(req,res,next){
     try{
-      const topPicks = await productService.getTopPicks();
+      const topPicks = await productService.getTopPicks(req.body?.limit);
       return res.status(200).json(topPicks);
     }
     catch(err){

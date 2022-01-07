@@ -7,8 +7,12 @@ const product = mongoose.Schema({
     requiredAttachments: Array,
     images: Array,
     user_id: String,
-    star : Number,
+    star : {
+        type : Number,
+        default : 0
+    },
     count : Number, 
+    shop_name : String,
 });
 
 const Product = mongoose.model('Products', product);

@@ -1,8 +1,10 @@
 import Product from "../../models/Product";
 import Review from "../../models/Review";
 import User from "../../models/User";
+import authService from "./auth.service";
 class ProductServices {
     async createProduct(user_id , product) {
+        const user = await authService.getUser(user_id);    
         const newProduct = await Product.create({
             title: product.title,
             price: product.price,
@@ -11,6 +13,7 @@ class ProductServices {
             requiredAttachments: product.requiredAttachments,
             images: product.images,
             user_id: user_id,
+            shop_name: user.shop_name,
         });
         return newProduct;
   
@@ -46,11 +49,11 @@ class ProductServices {
         return {...product["_doc"],reviews: {...reviewsOfProduct}};
     }
     async getTopPicks(limit){
-        const products = await Product.find().sort({
-            rating : -1
-        }).limit(limit);
+        const products = await Product.find({
+            star : {$gt : 0},
+           
+        }).sort({star : -1}).limit(limit);
         return products;
-        
     }
   }
   

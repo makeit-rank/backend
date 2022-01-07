@@ -206,6 +206,26 @@ paths:
           description: Return the user data
         404:
           description: User not found / Unauthorized
+  /product/gettoppicks:
+    get:
+      tags:
+        - Product
+      summary: Get top picks
+      parameters:
+        - in: body
+          name: body
+          description: Get top picks
+          schema:
+            type: object
+            properties:
+              limit:
+                type: number
+           
+      responses:
+        200:
+          description: Return the top picks
+        404:
+          description: User not found / Unauthorized
   /product/getproductbyid:
     get:
       tags:
