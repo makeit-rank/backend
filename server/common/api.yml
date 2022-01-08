@@ -491,6 +491,23 @@ paths:
           description: Successful removed from cart
         401:
           description: Invalid password or username
+  /product/getproductseller:
+    get:
+      tags:
+        - Product
+      security:
+        - bearerAuth: []
+      summary: Get product by seller
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the product data
+        404:
+          description: Product not found / Unauthorized
   /order/addorder:
     post:
       tags:

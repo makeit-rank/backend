@@ -30,6 +30,7 @@ class OrderService {
     const orders = await Order.find({
       product_id: { $in: await userService.getProducts(uid) },
     });
+    return orders;
   }
 }
 export default new OrderService();
