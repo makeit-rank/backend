@@ -57,7 +57,7 @@ export class Controller {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
       if (decoded.id) {
-        const products = await productService.getProductSeller(decoded.id);
+        const products = await productService.getProductSellerid(decoded.id);
         return res.status(200).json(products);
       } else {
         res.status(401).json({ message: "Unauthorized" });

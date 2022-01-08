@@ -1,10 +1,11 @@
 import Order from "../../models/Order";
 import Cart from "../../models/Cart";
 import userService from "./user.service";
+import productService from "./product.service";
 class OrderService {
   async createOrder(uid, body) {
     const order = {
-      product_id: body.id,
+      product_id: body.product_id,
       size: body.size,
       AttachedFiles: body.AttachedFiles ? body.AttachedFiles : null,
       user_id: uid,
@@ -27,8 +28,9 @@ class OrderService {
     return orders;
   }
   async getOrderforSeller(uid) {
+    const products = await productService.getProductSellerid(uid);
     const orders = await Order.find({
-      product_id: { $in: await userService.getProducts(uid) },
+      product_id: { $in: products },
     });
     return orders;
   }

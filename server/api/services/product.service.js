@@ -57,7 +57,7 @@ class ProductServices {
       .limit(limit);
     return products;
   }
-  async getProductSeller(uid) {
+  async getProductSellerid(uid) {
     const seller = await Seller.findOne({ user_id: uid });
     return seller.products ? seller.products : [];
   }
