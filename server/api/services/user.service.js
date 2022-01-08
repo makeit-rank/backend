@@ -1,7 +1,7 @@
 import Cart from "../../models/Cart";
 import User from "../../models/User";
 
-class CartService {
+class UserService {
   async addToCart(uid, body) {
     const cart = await Cart.create({ ...body, user_id: uid });
     return cart;
@@ -44,4 +44,4 @@ class CartService {
     return cart;
   }
 }
-export default new CartService();
+export default new UserService();

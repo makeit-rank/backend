@@ -1,10 +1,11 @@
 import Product from "../../models/Product";
 import Review from "../../models/Review";
+import Seller from "../../models/Seller";
 import User from "../../models/User";
 import authService from "./auth.service";
 class ProductServices {
   async createProduct(user_id, product) {
-    const user = await authService.getUser(user_id);
+    const seller = await Seller.findOne({ user_id: user_id });
     const newProduct = await Product.create({
       title: product.title,
       price: product.price,
@@ -13,8 +14,13 @@ class ProductServices {
       requiredAttachments: product.requiredAttachments,
       images: product.images,
       user_id: user_id,
-      shop_name: user.shop_name,
+      shop_name: seller.shop_name,
     });
+    seller.products
+      ? seller.products.push(newProduct._id)
+      : (seller.products = [newProduct._id]);
+
+    await seller.save();
     return newProduct;
   }
   async addReview(uid, body) {

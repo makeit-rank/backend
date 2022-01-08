@@ -26,8 +26,9 @@ definitions:
         example: 61d82e16caccbc1f64a8d1ab
       AttachmentFiles:
         type: array
-        items: string
-        example: ["https://bit.ly/3zCnHVv", "https://bit.ly/3zCnHVv"]
+        items:
+          type: string
+          example: ["https://bit.ly/3zCnHVv", "https://bit.ly/3zCnHVv"]
   Product:
     type: object
     title: Product
@@ -490,6 +491,46 @@ paths:
           description: Successful removed from cart
         401:
           description: Invalid password or username
+  /order/addorder:
+    post:
+      tags:
+        - Order
+      security:
+        - bearerAuth: []
+      summary: Add order
+      description: Add order
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: string
+              size:
+                type: string
+              AttachedFiles:
+                type: array
+                items:
+                  type: string
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful added order
+        401:
+          description: Invalid password or username
+  /order/addcartorder:
+    post:
+      tags:
+        - Order
+      security:
+        - bearerAuth: []
+      summary: Add cart order
+      description: Add cart order
 
   /spec:
     get:
