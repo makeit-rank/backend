@@ -535,6 +535,23 @@ paths:
           description: Return the order data
         404:
           description: Order not found / Unauthorized
+  /order/getorderforuser:
+    get:
+      tags:
+        - Order
+      security:
+        - bearerAuth: []
+      summary: Get order for user
+      description: Get order for user
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the order data
+        404:
+          description: Order not found / Unauthorized
   /product/getproductseller:
     get:
       tags:
