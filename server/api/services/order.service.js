@@ -14,6 +14,8 @@ class OrderService {
       },
       created_at: new Date().toISOString(),
     };
+    if (order.AttachedFiles === null)
+      order.status["Delivered"] = new Date().toISOString();
     const newOrder = await Order.create(order);
     return newOrder._id;
   }
@@ -33,6 +35,17 @@ class OrderService {
       product_id: { $in: products },
     });
     return orders;
+  }
+  async updateStatus(body) {
+    const order = await Order.findById(body.order_id);
+    if (body.status === "Confirmed") {
+      order.status["Confirmed"] = new Date().toISOString();
+    } else if (body.status === "Approved") {
+      order.status["Delivered"] = new Date().toISOString();
+    }
+    // Other status updates
+    await order.save();
+    return order;
   }
 }
 export default new OrderService();
