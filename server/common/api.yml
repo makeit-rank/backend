@@ -508,6 +508,33 @@ paths:
           description: Return the order data
         404:
           description: Order not found / Unauthorized
+  /order/updatestatus:
+    post:
+      tags:
+        - Order
+      security:
+        - bearerAuth: []
+      summary: Update order status
+      description: Update order status
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              order_id:
+                type: string
+              status:
+                type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the order data
+        404:
+          description: Order not found / Unauthorized
   /product/getproductseller:
     get:
       tags:

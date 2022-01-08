@@ -47,5 +47,9 @@ class OrderService {
     await order.save();
     return order;
   }
+  async getOrderforUser(uid) {
+    const orders = await Order.find({ user_id: uid });
+    return orders;
+  }
 }
 export default new OrderService();
