@@ -30,7 +30,7 @@ class ProductServices {
       product_id: body.product_id,
       star: body.star,
       description: body.description,
-      timestamp: new Date().toLocaleString(),
+      timestamp: new Date().toISOString(),
     });
     const product = await Product.findById(body.product_id);
     const count = product?.count ? product.count : 0;
@@ -56,6 +56,10 @@ class ProductServices {
       .sort({ star: -1 })
       .limit(limit);
     return products;
+  }
+  async getProductSeller(id) {
+    const seller = await Seller.findById(uid);
+    return seller.products;
   }
 }
 

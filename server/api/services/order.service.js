@@ -26,5 +26,10 @@ class OrderService {
     const cart = await Cart.deleteMany({ user_id: uid });
     return orders;
   }
+  async getOrderforSeller(uid) {
+    const orders = await Order.find({
+      product_id: { $in: await userService.getProducts(uid) },
+    });
+  }
 }
 export default new OrderService();
