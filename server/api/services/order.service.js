@@ -39,21 +39,34 @@ class OrderService {
   async updateStatus(body) {
     const order = await Order.findById(body.order_id);
     if (body.status === "Confirmed") {
-      order.body.status["Confirmed"] = new Date().getTime();
+      order.status["Confirmed"] = new Date().getTime();
     } else if (body.status === "Approved") {
-      order.body.status["Delivered"] = new Date().getTime();
+      order.status["Delivered"] = new Date().getTime();
     } else if (body.status === "AskedForChange") {
-      order.body.status["AskedForChange"].push({
-        data: body.Textdata, // Text
-        date: new Date().getTime(),
-      });
+      order.status["AskedForChange"]
+        ? order.status["AskedForChange"].push({
+            data: body.Textdata, // Text
+            date: new Date().getTime(),
+          })
+        : (order.status["AskedForChange"] = [
+            {
+              data: body.Textdata,
+              date: new Date().getTime(),
+            },
+          ]);
     } else if (body.status === "AskedForApprove") {
-      order.status["AskedForApprove"].push({
-        data: body.Imagedata, // Links of images
-        date: new Date().getTime(),
-      });
+      order.status["AskedForApprove"]
+        ? order.status["AskedForApprove"].push({
+            data: body.ImageData, // links of images
+            date: new Date().getTime(),
+          })
+        : (order.status["AskedForApprove"] = [
+            {
+              data: body.ImageData,
+              date: new Date().getTime(),
+            },
+          ]);
     }
-
     await order.save();
     return order;
   }
