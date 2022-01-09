@@ -10,6 +10,58 @@ produces:
   - application/json
 
 definitions:
+  User:
+    type: object
+    properties:
+      user_id:
+        type: string
+      name:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      address:
+        type: array
+        items:
+          type: string
+      wishlist:
+        type: array
+        items:
+          type: string
+      mobile:
+        type: string
+      role:
+        type: string
+  Order:
+    type: object
+    properties:
+      order_id:
+        type: string
+      user_id:
+        type: string
+      product_id:
+        type: string
+      size:
+        type: string
+      status:
+        type: object
+        properties:
+          status:
+            type: string
+          date:
+            type: string
+          TextData:
+            type: array
+            items:
+              type: string
+          ImageData:
+            type: array
+            items:
+              type: string
+        created_at:
+          type: number
+
   Cart:
     type: object
     title: Cart
@@ -81,6 +133,56 @@ definitions:
         items:
           type: string
         example: ["S", "M", "L", "XL"]
+  Review:
+    type: object
+    title: Review
+    required:
+    properties:
+      review_id:
+        type: string
+        example: 61d82e16caccbc1f64a8d1ab
+      product_id:
+        type: string
+        example: 61d82e16caccbc1f64a8d1ab
+      user_id:
+        type: string
+        example: 61d82e16caccbc1f64a8d1ab
+      description:
+        type: string
+        example: "This is a good product"
+      rating:
+        type: number
+        example: 4
+      timestamp:
+        type: number
+        example: 1569098983
+  Seller:
+    type: object
+    title: Seller
+    required:
+    properties:
+      seller_id:
+        type: string
+        example: 61d82e16caccbc1f64a8d1ab
+      user_id:
+        type: string
+        example: 61d82e16caccbc1f64a8d1ab
+      shop_name:
+        type: string
+        example: "John Doe"
+      gst_in:
+        type: string
+        example: "GSTIN"
+      pickup_address:
+        type: object
+        properties:
+          address:
+            type: string
+            example: "Address"
+          pincode:
+            type: string
+            example: "Pincode"
+        example: { "address": "Address", "pincode": "Pincode" }
 
 paths:
   /auth/login:
