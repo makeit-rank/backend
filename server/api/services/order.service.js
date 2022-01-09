@@ -42,8 +42,17 @@ class OrderService {
       order.status["Confirmed"] = new Date().toISOString();
     } else if (body.status === "Approved") {
       order.status["Delivered"] = new Date().toISOString();
+    } else if (body.status === "") {
+      order.status["AskedForChange"] = {
+        data: body.data,
+        date: new Date().toISOString(),
+      };
+      order.status["AskedForApprove"] = {
+        data: body.data,
+        date: new Date().toISOString(),
+      };
     }
-    // Other status updates
+
     await order.save();
     return order;
   }

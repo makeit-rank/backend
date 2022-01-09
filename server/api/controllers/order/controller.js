@@ -33,16 +33,7 @@ export class Controller {
       res.status(500).send(err);
     }
   }
-  async confirmOrder(req, res) {
-    try {
-      const token = req.headers.authorization.split(" ")[1];
-      const decoded = await authenticationService.verifyToken(token);
-      const order = await orderService.confirmOrder(req.body.order_id);
-      res.status(200).send(order);
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  }
+
   async updateStatus(req, res) {
     try {
       const token = req.headers.authorization.split(" ")[1];
