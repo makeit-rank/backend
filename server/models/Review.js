@@ -5,7 +5,7 @@ const review = mongoose.Schema({
   name: String,
   star: Number,
   description: String,
-  timestamp: String,
+  timestamp: Number,
 });
 const Review = mongoose.model("Review", review);
 export default Review;

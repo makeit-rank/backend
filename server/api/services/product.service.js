@@ -30,7 +30,7 @@ class ProductServices {
       product_id: body.product_id,
       star: body.star,
       description: body.description,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().getTime(),
     });
     const product = await Product.findById(body.product_id);
     const count = product?.count ? product.count : 0;

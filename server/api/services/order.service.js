@@ -10,12 +10,12 @@ class OrderService {
       AttachedFiles: body.AttachedFiles ? body.AttachedFiles : null,
       user_id: uid,
       status: {
-        Ordered: new Date().toISOString(),
+        Ordered: new Date().getTime(),
       },
-      created_at: new Date().toISOString(),
+      created_at: new Date().getTime(),
     };
     if (order.AttachedFiles === null)
-      order.status["Delivered"] = new Date().toISOString();
+      order.status["Delivered"] = new Date().getTime();
     const newOrder = await Order.create(order);
     return newOrder._id;
   }
@@ -39,18 +39,19 @@ class OrderService {
   async updateStatus(body) {
     const order = await Order.findById(body.order_id);
     if (body.status === "Confirmed") {
-      order.status["Confirmed"] = new Date().toISOString();
+      order.body.status["Confirmed"] = new Date().getTime();
     } else if (body.status === "Approved") {
-      order.status["Delivered"] = new Date().toISOString();
-    } else if (body.status === "") {
-      order.status["AskedForChange"] = {
-        data: body.data,
-        date: new Date().toISOString(),
-      };
-      order.status["AskedForApprove"] = {
-        data: body.data,
-        date: new Date().toISOString(),
-      };
+      order.body.status["Delivered"] = new Date().getTime();
+    } else if (body.status === "AskedForChange") {
+      order.body.status["AskedForChange"].push({
+        data: body.data, // Text
+        date: new Date().getTime(),
+      });
+    } else if (body.status === "AskedForApprove") {
+      order.status["AskedForApprove"].push({
+        data: body.data, // Links of images
+        date: new Date().getTime(),
+      });
     }
 
     await order.save();

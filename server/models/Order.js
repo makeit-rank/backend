@@ -5,7 +5,7 @@ const order = mongoose.Schema({
   AttachedFiles: Array,
   user_id: String,
   status: Object,
-  created_at: String,
+  created_at: Number,
 });
 
 export default new mongoose.model("Order", order);
