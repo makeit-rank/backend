@@ -66,7 +66,7 @@ export class Controller {
       next(err);
     }
   }
-  async searchProduct(req, res, next) {
+  async atlasSearch(req, res, next) {
     const products = await productService.searchProduct(req.body.query);
     return res.status(200).json(products);
   }

@@ -8,4 +8,4 @@ export default express
   .get("/getproductbyid", controller.getProductById)
   .get("/gettoppicks", controller.getTopPicks)
   .get("/getproductseller", controller.getProductSeller)
-  .get("/searchproduct", controller.searchProduct);
+  .get("/atlassearch", controller.atlasSearch);

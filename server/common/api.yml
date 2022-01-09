@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   version: 1.0.0
   title: Make-It
-  description: "MongoDB (Atlas Hackathon) \n\n Category : E-Commerce Creation "
+  description: "MongoDB (Atlas Hackathon) \n\n Category : E-Commerce (Atlas Search) "
 basePath: /api/v1
 consumes:
   - application/json
@@ -642,7 +642,7 @@ paths:
           description: Return the order data
         404:
           description: Order not found / Unauthorized
-  /product/searchproduct:
+  /product/atlassearch:
     get:
       tags:
         - Product
