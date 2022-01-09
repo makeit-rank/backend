@@ -44,12 +44,12 @@ class OrderService {
       order.body.status["Delivered"] = new Date().getTime();
     } else if (body.status === "AskedForChange") {
       order.body.status["AskedForChange"].push({
-        data: body.data, // Text
+        data: body.Textdata, // Text
         date: new Date().getTime(),
       });
     } else if (body.status === "AskedForApprove") {
       order.status["AskedForApprove"].push({
-        data: body.data, // Links of images
+        data: body.Imagedata, // Links of images
         date: new Date().getTime(),
       });
     }
