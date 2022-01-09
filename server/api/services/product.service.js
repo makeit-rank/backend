@@ -70,6 +70,7 @@ class ProductServices {
     return seller.products ? seller.products : [];
   }
   async searchProduct(keyword) {
+    if (keyword.length < 2) return [];
     const products = await Product.aggregate([
       {
         $search: {
