@@ -69,6 +69,20 @@ class ProductServices {
     const seller = await Seller.findOne({ user_id: uid });
     return seller.products ? seller.products : [];
   }
+  async searchProduct(keyword) {
+    const products = await Product.aggregate([
+      {
+        $search: {
+          index: "Search index",
+          autocomplete: {
+            query: keyword,
+            path: "search_key",
+          },
+        },
+      },
+    ]);
+    return products;
+  }
 }
 
 export default new ProductServices();

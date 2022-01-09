@@ -7,4 +7,5 @@ export default express
   .get("/getreview", controller.getReview)
   .get("/getproductbyid", controller.getProductById)
   .get("/gettoppicks", controller.getTopPicks)
-  .get("/getproductseller", controller.getProductSeller);
+  .get("/getproductseller", controller.getProductSeller)
+  .get("/searchproduct", controller.searchProduct);

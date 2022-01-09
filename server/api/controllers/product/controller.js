@@ -66,5 +66,9 @@ export class Controller {
       next(err);
     }
   }
+  async searchProduct(req, res, next) {
+    const products = await productService.searchProduct(req.body.query);
+    return res.status(200).json(products);
+  }
 }
 export default new Controller();
