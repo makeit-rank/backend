@@ -55,8 +55,18 @@ definitions:
       requiredAttachments:
         type: array
         items:
-          type: string
-        example: ["https://bit.ly/3zCnHVv", "https://bit.ly/3zCnHVv"]
+          type: object
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+        example:
+          [
+            { title: "Front", description: "Description of Front" },
+            { title: "Back", description: "Description of Back" },
+          ]
+
       specification:
         type: object
         example:
@@ -313,11 +323,15 @@ paths:
                 type: array
                 items:
                   type: string
-
               requiredAttachments:
                 type: array
                 items:
                   - type: object
+                    properties:
+                      title:
+                        type: string
+                      description:
+                        type: string
 
       consumes:
         - application/json
@@ -386,12 +400,12 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Get product by id
           schema:
             type: object
-            parameters:
+            properties:
               product_id:
                 type: string
+
       consumes:
         - application/json
       produces:

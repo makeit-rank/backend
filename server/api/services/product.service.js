@@ -6,16 +6,24 @@ import authService from "./auth.service";
 class ProductServices {
   async createProduct(user_id, product) {
     const seller = await Seller.findOne({ user_id: user_id });
+    const search_key =
+      (product.specification
+        ? product.specification.join(" ") + " " + product.title
+        : product.title) + (product.requiredAttachments ? " customizable" : "");
     const newProduct = await Product.create({
       title: product.title,
       price: product.price,
       specification: product.specification,
       various_size: product.various_size,
-      requiredAttachments: product.requiredAttachments,
+      requiredAttachments: product.requiredAttachments
+        ? product.requiredAttachments
+        : null,
       images: product.images,
       user_id: user_id,
       shop_name: seller.shop_name,
+      search_key: search_key,
     });
+
     seller.products
       ? seller.products.push(newProduct._id)
       : (seller.products = [newProduct._id]);

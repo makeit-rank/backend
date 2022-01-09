@@ -13,6 +13,7 @@ const product = mongoose.Schema({
   },
   count: Number,
   shop_name: String,
+  search_key: String,
 });
 
 const Product = mongoose.model("Products", product);
