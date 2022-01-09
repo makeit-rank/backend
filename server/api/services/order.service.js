@@ -33,7 +33,7 @@ class OrderService {
     const products = await productService.getProductSellerid(uid);
     const orders = await Order.find({
       product_id: { $in: products },
-    });
+    }).sort({ created_at: -1 });
     return orders;
   }
   async updateStatus(body) {
@@ -57,7 +57,7 @@ class OrderService {
     return order;
   }
   async getOrderforUser(uid) {
-    const orders = await Order.find({ user_id: uid });
+    const orders = await Order.find({ user_id: uid }).sort({ created_at: -1 });
     return orders;
   }
 }
