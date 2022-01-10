@@ -40,18 +40,20 @@ class OrderService {
     const order = await Order.findById(body.order_id);
     if (body.status === "Confirmed") {
       order.status["Confirmed"] = new Date().getTime();
-    } else if (body.status === "Approved") {
-      order.status["Delivered"] = new Date().getTime();
+    // } else if (body.status === "Approved") {
+    //   order.status["Delivered"] = new Date().getTime();
     } else if (body.status === "AskedForChange") {
       order.status["AskedForChange"]
         ? order.status["AskedForChange"].push({
             data: body.Textdata, // Text
             date: new Date().getTime(),
+            changeStatus: body.changeStatus,
           })
         : (order.status["AskedForChange"] = [
             {
               data: body.Textdata,
               date: new Date().getTime(),
+              changeStatus: body.changeStatus,
             },
           ]);
     } else if (body.status === "AskedForApprove") {
