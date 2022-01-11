@@ -431,12 +431,12 @@ paths:
               requiredAttachments:
                 type: array
                 items:
-                  - type: object
-                    properties:
-                      title:
-                        type: string
-                      description:
-                        type: string
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
 
       consumes:
         - application/json
