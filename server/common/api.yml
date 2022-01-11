@@ -30,7 +30,7 @@ definitions:
         items:
           type: string
       mobile:
-        type: string
+        type: number
       role:
         type: string
   Order:
@@ -536,7 +536,7 @@ paths:
               name:
                 type: string
               mobile:
-                type: string
+                type: number
               email:
                 type: string
               password:

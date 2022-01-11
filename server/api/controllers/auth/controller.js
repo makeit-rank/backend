@@ -12,6 +12,7 @@ export class Controller {
       const newUser = await AuthService.createUser(req.body);
       const token = authenticationService.generateToken(newUser._id);
       res.status(201).send(token);
+      return;
     } catch (err) {
       res.status(500).send(err);
       next(err);
