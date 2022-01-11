@@ -522,8 +522,8 @@ paths:
     post:
       tags:
         - Auth
-      summary: Sign in
-      description: Sign in to the application
+      summary: Sign up
+      description: Sign up to the application
       parameters:
         - in: body
           name: body
