@@ -2,7 +2,7 @@ import authenticationService from "../../services/authentication.service";
 import AuthService from "../../services/auth.service";
 
 export class Controller {
-  async signin(req, res, next) {
+  async signup(req, res, next) {
     try {
       const user = await AuthService.getUserbyEmail(req.body.email);
       if (user) {

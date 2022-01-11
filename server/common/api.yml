@@ -518,7 +518,7 @@ paths:
         404:
           description: Product not found / Unauthorized
 
-  /auth/signin:
+  /auth/signup:
     post:
       tags:
         - Auth

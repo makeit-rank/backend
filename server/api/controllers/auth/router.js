@@ -5,4 +5,4 @@ export default express
   .Router()
 
   .post("/login", controller.login)
-  .post("/signin", controller.signin);
+  .post("/signup", controller.signup);
