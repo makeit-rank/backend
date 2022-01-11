@@ -120,14 +120,12 @@ definitions:
           ]
 
       specification:
-        type: object
+        type: array
         example:
-          {
-            "Type": "Polo Neck",
-            "Color": "Black",
-            "Fabric": "Cotton",
-            "Fit": "Slim",
-          }
+          [
+            { "name": "Neck", "value": "Polo" },
+            { "name": "Neck", "value": "Polo" },
+          ]
       various_size:
         type: array
         items:
@@ -415,7 +413,12 @@ paths:
               specification:
                 type: array
                 items:
-                  type: string
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
 
               images:
                 type: array
