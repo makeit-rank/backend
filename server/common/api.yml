@@ -76,7 +76,7 @@ definitions:
       user_id:
         type: string
         example: 61d82e16caccbc1f64a8d1ab
-      AttachmentFiles:
+      attachmentFiles:
         type: array
         items:
           type: string
@@ -563,7 +563,7 @@ paths:
                 type: string
               size:
                 type: string
-              AttachedFiles:
+              attachedFiles:
                 type: array
                 items:
                   type: string
