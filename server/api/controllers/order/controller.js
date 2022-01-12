@@ -16,7 +16,7 @@ export class Controller {
     try {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
-      const order = await orderService.createCartOrder(decoded.id);
+      const order = await orderService.createCartOrder(decoded.id, req.body);
 
       res.status(200).send(order);
     } catch (err) {

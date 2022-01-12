@@ -15,18 +15,21 @@ class OrderService {
         Ordered: new Date().getTime(),
       },
       created_at: new Date().getTime(),
-      Address: body.Address,
+      address: body.Address,
     };
     if (order.AttachedFiles === null)
       order.status["Delivered"] = new Date().getTime();
     const newOrder = await Order.create(order);
     return newOrder._id;
   }
-  async createCartOrder(uid) {
+  async createCartOrder(uid, body) {
     const carts = await userService.getCart(uid);
     const orders = [];
     for (let i = 0; i < carts.length; i++) {
-      const newOrder = await this.createOrder(uid, carts[i]);
+      const newOrder = await this.createOrder(uid, {
+        ...carts[i]["_doc"],
+        address: body.address,
+      });
       orders.push(newOrder._id);
     }
     const cart = await Cart.deleteMany({ user_id: uid });

@@ -779,6 +779,19 @@ paths:
         - Order
       security:
         - bearerAuth: []
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              address:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  pincode:
+                    type: string
       summary: Add cart order
       description: Add cart order
 
