@@ -61,14 +61,13 @@ export class Controller {
         if (await res.status(200).send(order)) {
           return res.status(200).send(order);
         } else {
-          res.status(404).send("Order not found");
+          return res.status(404).send("Order not found");
         }
-        return;
       } else {
         return res.status(401).send({ message: "Unauthorized" });
       }
     } catch (err) {
-      res.status(500).send(err);
+      return res.status(500).send(err);
     }
   }
 }
