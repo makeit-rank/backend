@@ -24,7 +24,9 @@ Project is created with:
 * jsonwebtoken version: 8.5.1
 * multer version: 1.4.4
 * bcrypt version: 5.0.1
+* deployment: Microsoft azure 
 * swagger
+
 
 
 ## Getting Started
