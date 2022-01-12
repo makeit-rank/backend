@@ -670,13 +670,11 @@ paths:
       summary: Search product
       description: Search product
       parameters:
-        - in: body
-          name: body
+        - in: query
+          name: query
           schema:
-            type: object
-            properties:
-              query:
-                type: string
+            type: string
+
       consumes:
         - application/json
       produces:

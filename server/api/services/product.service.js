@@ -6,10 +6,17 @@ import authService from "./auth.service";
 class ProductServices {
   async createProduct(user_id, product) {
     const seller = await Seller.findOne({ user_id: user_id });
-    const search_key =
-      (product.specification
-        ? product.specification.join(" ") + " " + product.title
-        : product.title) + (product.requiredAttachments ? " customizable" : "");
+    let search_key = "";
+    const length = product.specification ? product.specification.length : 0;
+    for (let i = 0; i < length; i++) {
+      search_key +=
+        product.specification[i].name +
+        " " +
+        product.specification[i].value +
+        " ";
+    }
+    search_key += product.title;
+
     const newProduct = await Product.create({
       title: product.title,
       price: product.price,
@@ -54,7 +61,7 @@ class ProductServices {
   async getProductById(id) {
     const product = await Product.findById(id);
     const reviewsOfProduct = await Review.find({ product_id: id });
-    console.log(id);
+
     try {
       return { ...product["_doc"], reviews: { ...reviewsOfProduct } };
     } catch (err) {
@@ -83,18 +90,44 @@ class ProductServices {
   }
   async searchProduct(keyword) {
     if (keyword.length < 2) return [];
-    const products = await Product.aggregate([
-      {
-        $search: {
-          index: "Search index",
-          autocomplete: {
-            query: keyword,
-            path: "search_key",
+    const keys = keyword.split(" ");
+    let top = 0;
+    let picks = 0;
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i] === "top") top = 1;
+      else if (keys[i] === "pick" || keys[i] === "picks") picks = 1;
+    }
+    if (top && picks) {
+      return this.getTopPicks(10);
+    } else if (top) {
+      const products = await Product.aggregate([
+        {
+          $search: {
+            index: "Search index",
+            autocomplete: {
+              query: keyword,
+              path: "search_key",
+            },
           },
         },
-      },
-    ]);
-    return products;
+      ])
+        .sort({ star: -1 })
+        .limit(10);
+      return products;
+    } else {
+      const products = await Product.aggregate([
+        {
+          $search: {
+            index: "Search index",
+            autocomplete: {
+              query: keyword,
+              path: "search_key",
+            },
+          },
+        },
+      ]);
+      return products;
+    }
   }
 }
 

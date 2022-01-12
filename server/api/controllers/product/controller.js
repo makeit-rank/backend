@@ -38,8 +38,7 @@ export class Controller {
   }
   async getProductById(req, res, next) {
     try {
-      console.log(req.query);
-      const product = await productService.getProductById();
+      const product = await productService.getProductById(req.query.product_id);
       return res.status(200).json(product);
     } catch (err) {
       next(err);
@@ -68,7 +67,7 @@ export class Controller {
     }
   }
   async atlasSearch(req, res, next) {
-    const products = await productService.searchProduct(req.body.query);
+    const products = await productService.searchProduct(req.query.query);
     return res.status(200).json(products);
   }
 }
