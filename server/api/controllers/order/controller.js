@@ -58,7 +58,8 @@ export class Controller {
           decoded.id,
           req.query.order_id
         );
-        if (await res.status(200).send(order)) {
+
+        if (order) {
           return res.status(200).send(order);
         } else {
           return res.status(404).send("Order not found");
