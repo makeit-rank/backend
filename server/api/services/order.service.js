@@ -9,7 +9,7 @@ class OrderService {
     const order = {
       product_id: body.product_id,
       size: body.size,
-      AttachedFiles: body.AttachedFiles ? body.AttachedFiles : null,
+      attachedFiles: body.attachedFiles ? body.attachedFiles : null,
       user_id: uid,
       status: {
         Ordered: new Date().getTime(),
@@ -17,7 +17,7 @@ class OrderService {
       created_at: new Date().getTime(),
       address: body.Address,
     };
-    if (order.AttachedFiles === null)
+    if (order.attachedFiles === null)
       order.status["Delivered"] = new Date().getTime();
     const newOrder = await Order.create(order);
     return newOrder._id;
