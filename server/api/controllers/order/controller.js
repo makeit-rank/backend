@@ -50,8 +50,14 @@ export class Controller {
     }
   }
   async getOrderById(req, res) {
-    const order = await orderService.getOrderById(req.query.order_id);
-    res.status(200).send(order);
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const decoded = await authenticationService.verifyToken(token);
+      const order = await orderService.getOrderById(req.query.order_id);
+      res.status(200).send(order);
+    } catch (err) {
+      res.status(500).send(err);
+    }
   }
 }
 
