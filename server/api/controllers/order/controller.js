@@ -59,7 +59,7 @@ export class Controller {
           req.query.order_id
         );
 
-        if (order) {
+        if (order !== null) {
           return res.status(200).send(order);
         } else {
           return res.status(404).send("Order not found");
