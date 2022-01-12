@@ -11,7 +11,6 @@ class AuthService {
   async getUser(uid) {
     let user = await User.findById(uid, { _id: 0, __v: 0 });
     user.password = undefined;
-    user._doc["_id"] = undefined;
 
     if (user.role == "seller") {
       const seller = await Seller.findOne({ user_id: uid }, { _id: 0, __v: 0 });
