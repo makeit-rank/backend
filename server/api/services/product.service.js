@@ -95,7 +95,14 @@ class ProductServices {
     let picks = 0;
     for (let i = 0; i < keys.length; i++) {
       if (keys[i] === "top") top = 1;
-      else if (keys[i] === "pick" || keys[i] === "picks") picks = 1;
+      else if (
+        keys[i] === "pick" ||
+        keys[i] === "picks" ||
+        keys[i] === "toppicks" ||
+        keys[i] === "top-picks" ||
+        keys[i] === "top-pick"
+      )
+        picks = 1;
     }
     if (top && picks) {
       return this.getTopPicks(10);

@@ -1,7 +1,7 @@
 {
-  "name": "myapp",
+  "name": "makeit_backend",
   "version": "1.0.0",
-  "description": "My cool app",
+  "description": "Back End for Makeit",
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
