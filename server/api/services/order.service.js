@@ -2,6 +2,8 @@ import Order from "../../models/Order";
 import Cart from "../../models/Cart";
 import userService from "./user.service";
 import productService from "./product.service";
+import Product from "../../models/Product";
+import Seller from "../../models/Seller";
 class OrderService {
   async createOrder(uid, body) {
     const order = {
@@ -30,10 +32,16 @@ class OrderService {
     return orders;
   }
   async getOrderforSeller(uid) {
-    const products = await productService.getProductSellerid(uid);
+    const seller = await Seller.findOne({ user_id: uid });
+    const products = seller.products;
     const orders = await Order.find({
       product_id: { $in: products },
     }).sort({ created_at: -1 });
+
+    for (let i = 0; i < orders.length; i++) {
+      const product = await Product.findById(orders[i].product_id);
+      if (product) orders[i].product_details = product;
+    }
     return orders;
   }
   async updateStatus(body) {
@@ -74,6 +82,10 @@ class OrderService {
   }
   async getOrderforUser(uid) {
     const orders = await Order.find({ user_id: uid }).sort({ created_at: -1 });
+    for (let i = 0; i < orders.length; i++) {
+      const product = await Product.findById(orders[i].product_id);
+      if (product) orders[i].product_details = product;
+    }
     return orders;
   }
 }
