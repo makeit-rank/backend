@@ -292,12 +292,6 @@ paths:
                 type: string
               star:
                 type: number
-              headline:
-                type: string
-              images:
-                type: array
-                items:
-                  type: string
               description:
                 type: string
 
