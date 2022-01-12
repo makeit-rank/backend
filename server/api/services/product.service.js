@@ -54,20 +54,32 @@ class ProductServices {
   async getProductById(id) {
     const product = await Product.findById(id);
     const reviewsOfProduct = await Review.find({ product_id: id });
-
-    return { ...product["_doc"], reviews: { ...reviewsOfProduct } };
+    console.log(id);
+    try {
+      return { ...product["_doc"], reviews: { ...reviewsOfProduct } };
+    } catch (err) {
+      return { message: "Product not found" };
+    }
   }
   async getTopPicks(limit) {
     const products = await Product.find({
       star: { $gt: 0 },
     })
       .sort({ star: -1 })
-      .limit(limit);
+      .limit(parseInt(limit));
     return products;
   }
   async getProductSellerid(uid) {
     const seller = await Seller.findOne({ user_id: uid });
-    return seller.products ? seller.products : [];
+    const products = [];
+    if (seller) {
+      for (let i = 0; i < seller.products.length; i++) {
+        const product = await Product.findById(seller.products[i]);
+        if (product) products.push(product);
+      }
+      return products;
+    }
+    return { message: "No user found" };
   }
   async searchProduct(keyword) {
     if (keyword.length < 2) return [];

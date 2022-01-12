@@ -38,7 +38,8 @@ export class Controller {
   }
   async getProductById(req, res, next) {
     try {
-      const product = await productService.getProductById(req.body.product_id);
+      console.log(req.query);
+      const product = await productService.getProductById();
       return res.status(200).json(product);
     } catch (err) {
       next(err);
@@ -46,7 +47,7 @@ export class Controller {
   }
   async getTopPicks(req, res, next) {
     try {
-      const topPicks = await productService.getTopPicks(req.body?.limit);
+      const topPicks = await productService.getTopPicks(req.query?.limit);
       return res.status(200).json(topPicks);
     } catch (err) {
       next(err);

@@ -480,15 +480,12 @@ paths:
         - Product
       summary: Get top picks
       parameters:
-        - in: body
-          name: body
+        - in: query
+          name: limit
           description: Get top picks
           schema:
-            type: object
-            properties:
-              limit:
-                type: number
-
+            type: integer
+            description: Set Limitation for the number of products
       responses:
         200:
           description: Return the top picks
@@ -501,13 +498,12 @@ paths:
         - Product
       summary: Get product by id
       parameters:
-        - in: body
-          name: body
+        - in: query
+          name: product_id
+          description: Pass product id
           schema:
-            type: object
-            properties:
-              product_id:
-                type: string
+            type: string
+            description: get product data from the product id
 
       consumes:
         - application/json
@@ -518,7 +514,6 @@ paths:
           description: Return the product data
         404:
           description: Product not found / Unauthorized
-
   /auth/signup:
     post:
       tags:
