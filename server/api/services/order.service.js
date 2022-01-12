@@ -92,12 +92,14 @@ class OrderService {
     }
     return orders;
   }
-  async getOrderById(id) {
+  async getOrderById(uid, id) {
     const order = await Order.findById(id);
     const product = await Product.findById(order.product_id);
     if (product) order.product_details = product;
     const seller = await Seller.findOne({ user_id: product.user_id });
     if (seller) order.seller_details = seller;
+    if (uid !== order.user_id || uid !== seller._id)
+      return { message: "You are not authorized to view this order" };
     return order;
   }
 }
