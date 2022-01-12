@@ -15,8 +15,6 @@ class AuthService {
 
     if (user.role == "seller") {
       const seller = await Seller.findOne({ user_id: uid }, { _id: 0, __v: 0 });
-      seller._doc["_id"] = undefined;
-      seller._doc["user_id"] = undefined;
       return { ...user["_doc"], ...seller["_doc"] };
     } else {
       return user;

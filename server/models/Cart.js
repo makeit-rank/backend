@@ -4,6 +4,7 @@ const cart = mongoose.Schema({
   size: String,
   AttachedFiles: Array,
   user_id: String,
+  product_details: Object,
 });
 
 const Cart = new mongoose.model("Cart", cart);

@@ -1,5 +1,6 @@
 import Cart from "../../models/Cart";
 import User from "../../models/User";
+import productService from "./product.service";
 
 class UserService {
   async addToCart(uid, body) {
@@ -8,6 +9,10 @@ class UserService {
   }
   async getCart(uid) {
     const carts = await Cart.find({ user_id: uid });
+    for (let i = 0; i < carts.length; i++) {
+      const product = await productService.getProductById(carts[i].product_id);
+      carts[i].product_details = product;
+    }
     return carts;
   }
   async removeFromCart(uid, body) {

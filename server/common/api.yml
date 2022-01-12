@@ -354,6 +354,8 @@ paths:
     post:
       tags:
         - Wishlist
+      security:
+        - bearerAuth: []
       Summary: Move wishlist
       Description: Move a product to wishlist
       parameters:
@@ -375,6 +377,8 @@ paths:
     delete:
       tags:
         - Wishlist
+      security:
+        - bearerAuth: []
       Summary: Remove from wishlist
       Description: Remove from wishlist
       parameters:
