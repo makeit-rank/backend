@@ -719,14 +719,14 @@ paths:
                 type: string
               size:
                 type: string
-              AttachedFiles:
+              attachedFiles:
                 type: array
                 items:
                   type: string
-              Address:
+              address:
                 type: object
                 properties:
-                  Address:
+                  address:
                     type: string
                   pincode:
                     type: string
