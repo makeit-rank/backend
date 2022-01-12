@@ -1,8 +1,6 @@
 <div align="center">
-  <h1>Make-It</h1>
-<p>
-This is a backend for the Make-It web application
-  </p>
+  <h1>Make-It Backend</h1>
+
 </div>
 
  
