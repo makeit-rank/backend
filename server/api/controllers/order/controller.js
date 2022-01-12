@@ -53,8 +53,12 @@ export class Controller {
     try {
       const token = req.headers.authorization.split(" ")[1];
       const decoded = await authenticationService.verifyToken(token);
-      const order = await orderService.getOrderById(req.query.order_id);
-      res.status(200).send(order);
+      if (decoded) {
+        const order = await orderService.getOrderById(req.query.order_id);
+        return res.status(200).send(order);
+      } else {
+        return res.status(401).send({ message: "Unauthorized" });
+      }
     } catch (err) {
       res.status(500).send(err);
     }
