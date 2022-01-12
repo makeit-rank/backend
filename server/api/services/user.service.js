@@ -33,7 +33,16 @@ class UserService {
   }
   async getWishlist(uid) {
     const user = await User.findById(uid);
-    return user.wishlist;
+    const products = [];
+    if (user.wishlist) {
+      for (let i = 0; i < user.wishlist.length; i++) {
+        const product = await Product.findById(user.wishlist[i]);
+        if (product) products.push(product);
+      }
+      return products;
+    } else {
+      return [];
+    }
   }
   async removeWishlist(uid, product_id) {
     await User.findByIdAndUpdate(uid, {
