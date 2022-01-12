@@ -63,7 +63,7 @@ class ProductServices {
     const reviewsOfProduct = await Review.find({ product_id: id });
 
     try {
-      return { ...product["_doc"], reviews: { ...reviewsOfProduct } };
+      return { ...product["_doc"], reviews: [...reviewsOfProduct] };
     } catch (err) {
       return { message: "Product not found" };
     }
