@@ -8,6 +8,7 @@ const order = mongoose.Schema({
   created_at: Number,
   product_details: Object,
   seller_details: Object,
+  Address: Object,
 });
 
 export default new mongoose.model("Order", order);

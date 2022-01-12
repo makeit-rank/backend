@@ -15,6 +15,7 @@ class OrderService {
         Ordered: new Date().getTime(),
       },
       created_at: new Date().getTime(),
+      Address: body.Address,
     };
     if (order.AttachedFiles === null)
       order.status["Delivered"] = new Date().getTime();
