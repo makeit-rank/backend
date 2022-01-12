@@ -99,6 +99,7 @@ class OrderService {
     const seller = await Seller.findOne({ user_id: product.user_id });
     if (seller) order.seller_details = seller;
     console.log(order, seller, product);
+    if (uid !== order.user_id && uid !== seller.user_id) return null;
     return order;
   }
 }
