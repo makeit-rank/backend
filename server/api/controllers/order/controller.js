@@ -58,7 +58,12 @@ export class Controller {
           decoded.id,
           req.query.order_id
         );
-        return res.status(200).send(order);
+        if (await res.status(200).send(order)) {
+          return res.status(200).send(order);
+        } else {
+          res.status(404).send("Order not found");
+        }
+        return;
       } else {
         return res.status(401).send({ message: "Unauthorized" });
       }

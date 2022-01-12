@@ -98,8 +98,7 @@ class OrderService {
     if (product) order.product_details = product;
     const seller = await Seller.findOne({ user_id: product.user_id });
     if (seller) order.seller_details = seller;
-    if (uid !== order.user_id || uid !== seller._id)
-      return { message: "You are not authorized to view this order" };
+    console.log(order, seller, product);
     return order;
   }
 }
