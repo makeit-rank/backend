@@ -2,20 +2,22 @@
 
 This is a backend for the Make-It application.
 
-## Get Started
+ ![Logo](https://user-images.githubusercontent.com/75676675/149098056-aa590da7-3dda-4b24-b6bb-f1d04b3f0061.jpg)
+ 
+## Explore api's : http://makeit.centralindia.cloudapp.azure.com:8080/api-explorer/
+ 
+## Technologies
 
-Get started developing...
+Project is created with:
+* nodejs version: 16.13.0
+* express version: 4.17.1
+* mongoose version: 5.11.17
+* jsonwebtoken version: 8.5.1
+* multer version: 1.4.4
+* bcrypt version: 5.0.1
+* swagger
 
-```shell
-# install deps
-npm install
 
-# run in development mode
-npm run dev
-
-# run tests
-npm run test
-```
 
 ## How do I modify the example API and make it my own?
 
