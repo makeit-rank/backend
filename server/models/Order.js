@@ -7,6 +7,7 @@ const order = mongoose.Schema({
   status: Object,
   created_at: Number,
   product_details: Object,
+  seller_details: Object,
 });
 
 export default new mongoose.model("Order", order);

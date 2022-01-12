@@ -49,6 +49,10 @@ export class Controller {
       res.status(500).send(err);
     }
   }
+  async getOrderById(req, res) {
+    const order = await orderService.getOrderById(req.query.order_id);
+    res.status(200).send(order);
+  }
 }
 
 export default new Controller();

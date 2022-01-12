@@ -7,4 +7,5 @@ export default express
   .post("/addcartorder", controller.createCartOrder)
   .get("/getorderforseller", controller.getOrderforSeller)
   .put("/updatestatus", controller.updateStatus)
-  .get("/getorderforuser", controller.getOrderforUser);
+  .get("/getorderforuser", controller.getOrderforUser)
+  .get("/getorderbyid", controller.getOrderById);

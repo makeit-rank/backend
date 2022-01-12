@@ -88,5 +88,13 @@ class OrderService {
     }
     return orders;
   }
+  async getOrderById(id) {
+    const order = await Order.findById(id);
+    const product = await Product.findById(order.product_id);
+    if (product) order.product_details = product;
+    const seller = await Seller.findOne({ user_id: product.user_id });
+    if (seller) order.seller_details = seller;
+    return order;
+  }
 }
 export default new OrderService();
