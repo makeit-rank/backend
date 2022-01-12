@@ -116,7 +116,7 @@ export class Controller {
           decoded.id,
           req.body.product_id
         );
-        res.status(200).send("Removed Succesfully!");
+        await res.status(200).send("Removed Succesfully!");
       } else {
         res.status(401).send("Unauthorized");
       }
@@ -144,7 +144,7 @@ export class Controller {
       const decoded = await authenticationService.verifyToken(token);
       if (decoded.id) {
         const wishlist = await userService.moveTowishlist(decoded.id, req.body);
-        return res.send(wishlist);
+        return await res.status(200).send(wishlist);
       } else {
         res.status(401).send("Unauthorized");
       }

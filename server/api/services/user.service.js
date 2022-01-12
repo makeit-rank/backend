@@ -48,15 +48,24 @@ class UserService {
     await User.findByIdAndUpdate(uid, {
       $pull: { wishlist: product_id },
     });
-    return;
+    return { message: "Removed from wishlist" };
   }
   async moveTowishlist(uid, body) {
     const cart = await Cart.findByIdAndDelete(body.cart_id);
+    const user = await User.findById(uid);
+    if (cart) {
+      for (let i = 0; i < user.wishlist.length; i++) {
+        if (user.wishlist[i] == cart.product_id) {
+          return { message: "Product already in wishlist" };
+        }
+      }
+      user.wishlist.push(cart.product_id);
 
-    const user = await User.findByIdAndUpdate(uid, {
-      $push: { wishlist: cart.product_id },
-    });
-    return cart;
+      await user.save();
+      return { message: "Added in wishlist" };
+    } else {
+      return { message: "Cart not found" };
+    }
   }
 }
 export default new UserService();
