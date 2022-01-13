@@ -9,7 +9,8 @@ class OrderService {
     const order = {
       product_id: body.product_id,
       size: body.size,
-      attachedFiles: body.attachedFiles ? body.attachedFiles : null,
+      attachedFiles:
+        body.attachedFiles.length !== 0 ? body.attachedFiles : null,
       user_id: uid,
       status: {
         Ordered: new Date().getTime(),
