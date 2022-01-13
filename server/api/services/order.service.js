@@ -68,6 +68,10 @@ class OrderService {
               changeStatus: body.changeStatus,
             },
           ]);
+
+      if (body.changeStatus === false) {
+        order.status["Delivered"] = new Date().getTime();
+      }
     } else if (body.status === "AskedForApprove") {
       order.status["AskedForApprove"]
         ? order.status["AskedForApprove"].push({
