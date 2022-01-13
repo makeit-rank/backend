@@ -82,6 +82,8 @@ class OrderService {
             },
           ]);
     }
+    order.markModified("status");
+
     await order.save();
     return order;
   }
