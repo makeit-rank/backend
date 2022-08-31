@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   version: 1.0.0
   title: Make-It
-  description: "MongoDB (Atlas Hackathon) \n\n Category : E-Commerce (Atlas Search) "
+  description: "An eCommerce platform with a focus on customizable products."
 basePath: /api/v1
 consumes:
   - application/json

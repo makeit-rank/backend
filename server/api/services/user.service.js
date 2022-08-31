@@ -1,7 +1,6 @@
 import Cart from "../../models/Cart";
 import Product from "../../models/Product";
 import User from "../../models/User";
-import productService from "./product.service";
 
 class UserService {
   async addToCart(uid, body) {
