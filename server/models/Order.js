@@ -9,6 +9,10 @@ const order = mongoose.Schema({
   product_details: Object,
   seller_details: Object,
   address: Object,
+  rapyd_checkout_id: String,
+  page_expiration: Date,
+  rapyd_payment_id: String,
+  isPaid: Boolean,
 });
 
 export default new mongoose.model("Order", order);

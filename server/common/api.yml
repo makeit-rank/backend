@@ -701,6 +701,35 @@ paths:
           description: Return the product data
         404:
           description: Product not found / Unauthorized
+
+  /order/getAllPaymentMethods:
+    post:
+      tags:
+        - Order
+      security:
+        - bearerAuth: []
+      summary: Get all payment methods
+      description: Get all payment methods
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Return the payment methods
+        404:
+          description: Payment methods not found / Unauthorized
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              country:
+                type: string
+              currency:
+                type: string
+
   /order/addorder:
     post:
       tags:
@@ -730,6 +759,14 @@ paths:
                     type: string
                   pincode:
                     type: string
+              country:
+                type: string
+              currency:
+                type: string
+              paymentMethod:
+                type: array
+                items:
+                  type: string
 
       consumes:
         - application/json
@@ -740,6 +777,25 @@ paths:
           description: Successful added order
         401:
           description: Invalid password or username
+
+  /order/markPaymentComplete:
+    post:
+      tags:
+        - Order
+      security:
+        - bearerAuth: []
+      summary: Mark payment complete
+      description: Mark payment complete
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              checkout_id:
+                type: string
+              payment_id:
+                type: string
 
   /order/updatestatus:
     put:

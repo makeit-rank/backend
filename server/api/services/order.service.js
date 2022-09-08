@@ -4,25 +4,97 @@ import userService from "./user.service";
 import productService from "./product.service";
 import Product from "../../models/Product";
 import Seller from "../../models/Seller";
+import makeRapydRequest from "./helpers/rapydAPI.service";
 class OrderService {
-  async createOrder(uid, body) {
+  async fetchAllPaymentMethods(locationInfo) {
+    try {
+      const resp = await makeRapydRequest(
+        "GET",
+        `/v1/payment_methods/country?country=${locationInfo.country}&currency=${locationInfo.currency}`
+      );
+      return resp.body.data;
+    } catch (error) {
+      console.error("Error completing request", error);
+      throw error;
+    }
+  }
+
+  async createOrder(uid, checkoutBody) {
     const order = {
-      product_id: body.product_id,
-      size: body.size,
+      product_id: checkoutBody.product_id,
+      size: checkoutBody.size,
       attachedFiles:
-        body.attachedFiles.length !== 0 ? body.attachedFiles : null,
+        checkoutBody.attachedFiles.length !== 0
+          ? checkoutBody.attachedFiles
+          : null,
       user_id: uid,
       status: {
         Ordered: new Date().getTime(),
       },
       created_at: new Date().getTime(),
-      address: body.address,
+      address: checkoutBody.address,
     };
-    if (order.attachedFiles === null)
+    if (order.attachedFiles === null) {
       order.status["Delivered"] = new Date().getTime();
-    const newOrder = await Order.create(order);
-    return newOrder._id;
+    }
+
+    const productInfo = await productService.getProductById(
+      checkoutBody.product_id
+    );
+
+    const newOrder = await Order.create({
+      ...order,
+    });
+
+    const rapydCheckoutBody = {
+      amount: productInfo.price,
+      complete_checkout_url: "http://example.com/complete",
+      country: checkoutBody.country,
+      currency: checkoutBody.currency,
+      requested_currency: checkoutBody.currency,
+      merchant_reference_id: newOrder._id,
+      payment_method_types_include: checkoutBody.paymentMethod,
+    };
+
+    const result = await makeRapydRequest(
+      "POST",
+      "/v1/checkout",
+      rapydCheckoutBody
+    );
+
+    newOrder.rapyd_checkout_id = result.body.data.id;
+    newOrder.page_expiration = result.body.data.page_expiration * 1000;
+
+    await newOrder.save();
+    console.log(result.body.data.id);
+    console.log(
+      new Date(result.body.data.page_expiration * 1000).toLocaleString()
+    );
+
+    return {
+      order: newOrder._id,
+      checkout_id: newOrder.rapyd_checkout_id,
+    };
   }
+
+  async markPaymentComplete(checkoutBody) {
+    try {
+      const order = await Order.updateOne(
+        { rapyd_checkout_id: checkoutBody.checkout_id },
+        {
+          $set: {
+            rapyd_payment_id: checkoutBody.payment_id,
+            isPaid: true,
+          },
+        }
+      );
+      return order;
+    } catch (error) {
+      console.error("Error completing request", error);
+      throw error;
+    }
+  }
+
   async createCartOrder(uid, body) {
     const carts = await userService.getCart(uid);
     const orders = [];

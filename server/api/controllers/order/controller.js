@@ -2,6 +2,16 @@ import authenticationService from "../../services/authentication.service";
 import orderService from "../../services/order.service";
 
 export class Controller {
+  async getAllPaymentMethods(req, res) {
+    try {
+      const result = await orderService.fetchAllPaymentMethods(req.body);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error("Error completing request", error);
+      res.status(404).json(error);
+    }
+  }
+
   async createOrder(req, res) {
     try {
       const token = req.headers.authorization.split(" ")[1];
@@ -12,6 +22,17 @@ export class Controller {
       res.status(500).send(err);
     }
   }
+
+  async paymentComplete(req, res) {
+    try {
+      const result = await orderService.markPaymentComplete(req.body);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error("Error completing request", error);
+      res.status(404).json(error);
+    }
+  }
+
   async createCartOrder(req, res) {
     try {
       const token = req.headers.authorization.split(" ")[1];
