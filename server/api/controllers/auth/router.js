@@ -9,7 +9,7 @@ export default express
     res.send({
       host: req.get("host"),
       originalUrl: req.originalUrl,
-      domain: req.hostname,
+      origin: req.get("origin"),
     });
   })
   .post("/signup", controller.signup);
