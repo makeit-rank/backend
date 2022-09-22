@@ -7,7 +7,9 @@ export default express
   .get("/test", async (req, res) => {
     // return origin name and address
     res.send({
-      host: req,
+      host: req.get("host"),
+      originalUrl: req.originalUrl,
+      origin: req.get("origin"),
     });
   })
   .post("/signup", controller.signup);
