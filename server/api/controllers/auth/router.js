@@ -6,6 +6,10 @@ export default express
   .Router()
   .post("/login", controller.login)
   .get("/test", async (req, res) => {
-    res.send(req.get("host"));
+    res.send({
+      host: req.get("host"),
+      originalUrl: req.originalUrl,
+      origin: req.get("origin"),
+    });
   })
   .post("/signup", controller.signup);
