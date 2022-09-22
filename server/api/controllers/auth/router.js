@@ -10,6 +10,7 @@ export default express
       host: req.get("host"),
       originalUrl: req.originalUrl,
       origin: req.get("origin"),
+      orginProper: req.headers.origin,
     });
   })
   .post("/signup", controller.signup);
