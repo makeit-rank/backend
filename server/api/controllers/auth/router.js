@@ -4,9 +4,8 @@ import controller from "./controller";
 
 export default express
   .Router()
-
   .post("/login", controller.login)
-  .get("/shit", async (req, res) => {
+  .get("/test", async (req, res) => {
     res.send(req.get("host"));
   })
   .post("/signup", controller.signup);

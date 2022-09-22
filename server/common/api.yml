@@ -209,6 +209,18 @@ paths:
         401:
           description: Invalid password or username
 
+  /auth/test:
+    get:
+      tags:
+        - Auth
+      summary: Test
+      description: Test route
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful login
+
   /user/getuserdata:
     get:
       tags:
